@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "wise_system_accounting": {
+    "wise-system-accounting": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/wise_system_accounting",
+            "outputPath": "dist/wise-system-accounting",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "wise_system_accounting:build:production"
+              "buildTarget": "wise-system-accounting:build:production"
             },
             "development": {
-              "buildTarget": "wise_system_accounting:build:development"
+              "buildTarget": "wise-system-accounting:build:development"
             }
           },
           "defaultConfiguration": "development"

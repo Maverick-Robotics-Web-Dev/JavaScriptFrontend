@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:wise_system_accounting": "node dist/wise_system_accounting/server/server.mjs"
+    "serve:ssr:wise-system-accounting": "node dist/wise-system-accounting/server/server.mjs"
   },
   "private": true,
   "dependencies": {
