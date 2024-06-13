@@ -1,6 +1,6 @@
 export interface WaytoPayModel {
   ok: string;
-  data: WaytoPayData;
+  data: WaytoPayData[];
 }
 
 export interface WaytoPayData {
