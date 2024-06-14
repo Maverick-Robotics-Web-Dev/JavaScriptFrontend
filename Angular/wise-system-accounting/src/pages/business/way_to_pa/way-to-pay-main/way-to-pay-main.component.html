@@ -16,7 +16,7 @@
       <td>{{ waytopay.name }}</td>
       <td>{{ waytopay.description }}</td>
       <td>{{ waytopay.fk_user_employee }}</td>
-      <td><button type="button">Detalles</button></td>
+      <td><button type="button" (click)="retrieve(waytopay.id)">Detalles</button></td>
     </tr>
     }
   </tbody>

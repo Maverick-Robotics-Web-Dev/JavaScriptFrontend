@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { WayToPayService } from '../../../../services/business/way-to-pay.service';
-import { WaytoPayDataModel, WaytoPayAllModel, WaytoPayAllEmptyData } from '../../../../models/business/way-to-pay';
+import { WaytoPayAllModel, WaytoPayAllEmptyData } from '../../../../models/business/way-to-pay';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-way-to-pay-main',
@@ -10,13 +11,17 @@ import { WaytoPayDataModel, WaytoPayAllModel, WaytoPayAllEmptyData } from '../..
   styleUrl: './way-to-pay-main.component.css',
 })
 export class WayToPayMainComponent implements OnInit {
-  waytopayList: WaytoPayAllModel = WaytoPayAllEmptyData;
-  // waytopayList: WaytoPayData[] = [];
-  private _apirestservice = inject(WayToPayService);
+  private _apirestService: WayToPayService = inject(WayToPayService);
+  private _router: Router = inject(Router);
+  public waytopayList: WaytoPayAllModel = WaytoPayAllEmptyData;
 
   ngOnInit(): void {
-    this._apirestservice.getWaytoPays().subscribe((waytopay: WaytoPayAllModel) => {
+    this._apirestService.getWaytoPays().subscribe((waytopay: WaytoPayAllModel) => {
       this.waytopayList = waytopay;
     });
+  }
+
+  retrieve(id: number) {
+    this._router.navigate(['/way-to-pay', id]);
   }
 }

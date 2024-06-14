@@ -1,1 +1,17 @@
-<p>way-to-pay-id works!</p>
+@if(!loading){
+<h5>Loading...</h5>
+} @if(loading){
+<div class="card" style="width: 18rem">
+  <!-- <img src="..." class="card-img-top" alt="..." /> -->
+  <div class="card-body">
+    <h5 class="card-title">{{ waytopay.data.name }}</h5>
+    <p class="card-text">{{ waytopay.data.description }}</p>
+    <p class="card-text">{{ waytopay.data.status }}</p>
+    <p class="card-text">{{ waytopay.data.status_description }}</p>
+    <p class="card-text">{{ waytopay.data.create_at }}</p>
+    <p class="card-text">{{ waytopay.data.update_at }}</p>
+    <p class="card-text">{{ waytopay.data.fk_user_employee }}</p>
+    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+  </div>
+</div>
+}

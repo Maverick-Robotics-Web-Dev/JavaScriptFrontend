@@ -19,12 +19,7 @@ export interface WaytoPayDataModel {
   description: null | string;
 }
 
-export const WaytoPayAllEmptyData: WaytoPayAllModel = {
-  ok: '',
-  data: [],
-};
-
-export const WaytopayEmptyData: WaytoPayDataModel = {
+export const EmptyData: WaytoPayDataModel = {
   id: 0,
   fk_user_employee: '',
   status: false,
@@ -33,4 +28,14 @@ export const WaytopayEmptyData: WaytoPayDataModel = {
   update_at: '',
   name: '',
   description: '',
+};
+
+export const WaytoPayAllEmptyData: WaytoPayAllModel = {
+  ok: '',
+  data: [],
+};
+
+export const WaytopayEmptyData: WaytoPayModel = {
+  ok: '',
+  data: EmptyData,
 };
