@@ -16,7 +16,7 @@ export class WayToPayMainComponent implements OnInit {
   public waytopayList: WaytoPayAllModel = WaytoPayAllEmptyData;
 
   ngOnInit(): void {
-    this._apirestService.getWaytoPays().subscribe((waytopay: WaytoPayAllModel) => {
+    this._apirestService.getAllWaytoPay().subscribe((waytopay: WaytoPayAllModel) => {
       this.waytopayList = waytopay;
     });
   }
