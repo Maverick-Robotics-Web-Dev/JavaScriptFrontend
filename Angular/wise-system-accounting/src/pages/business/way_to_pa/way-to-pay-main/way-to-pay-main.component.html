@@ -1,3 +1,4 @@
+@if(waytopayAll | async; as waytopayList){
 <h1>Formas de Pago</h1>
 
 <table class="table">
@@ -21,3 +22,15 @@
     }
   </tbody>
 </table>
+} @if(httpError){ @if(httpError.error.message){
+<div>{{ httpError.error.message }}</div>
+<div>{{ httpError.status }}</div>
+<div>{{ httpError.statusText }}</div>
+<div>{{ httpError.url }}</div>
+
+} @else{
+<div>{{ httpError.error.msg }}</div>
+<div>{{ httpError.status }}</div>
+<div>{{ httpError.statusText }}</div>
+<div>{{ httpError.url }}</div>
+} }

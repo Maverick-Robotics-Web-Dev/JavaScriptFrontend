@@ -1,27 +1,29 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { WayToPayService } from '../../../../services/business/way-to-pay.service';
-import { WaytoPayModel, WaytopayEmptyData } from '../../../../models/business/way-to-pay';
+import { WaytoPayModel } from '../../../../models/business/way-to-pay';
+import { EMPTY, Observable, catchError } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-way-to-pay-id',
   standalone: true,
-  imports: [],
+  imports: [AsyncPipe],
   templateUrl: './way-to-pay-id.component.html',
   styleUrl: './way-to-pay-id.component.css',
 })
 export class WayToPayIdComponent implements OnInit {
+  @Input() id!: string;
+  public waytopay!: Observable<WaytoPayModel>;
   private _apirestService: WayToPayService = inject(WayToPayService);
-  private _route: ActivatedRoute = inject(ActivatedRoute);
-  public waytopay: WaytoPayModel = WaytopayEmptyData;
-  loading: boolean = false;
+  public httpError!: HttpErrorResponse;
 
   ngOnInit(): void {
-    this._route.params.subscribe((params: Params) => {
-      this._apirestService.getWaytoPay(params['id']).subscribe((waytopayId: WaytoPayModel) => {
-        this.waytopay = waytopayId;
-        this.loading = true;
-      });
-    });
+    this.waytopay = this._apirestService.getWaytoPay(this.id).pipe(
+      catchError((error: HttpErrorResponse) => {
+        this.httpError = error;
+        return EMPTY;
+      })
+    );
   }
 }
