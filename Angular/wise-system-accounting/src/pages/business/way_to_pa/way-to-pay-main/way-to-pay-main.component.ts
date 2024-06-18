@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { WayToPayService } from '../../../../services/business/way-to-pay.service';
-import { WaytoPayAllModel, WaytoPayAllEmptyData } from '../../../../models/business/way-to-pay';
+import { WaytoPayAllModel } from '../../../../models/business/way-to-pay';
 import { Router } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { EMPTY, Observable, catchError } from 'rxjs';
@@ -20,7 +20,7 @@ export class WayToPayMainComponent implements OnInit {
   public httpError!: HttpErrorResponse;
 
   ngOnInit(): void {
-    this.waytopayAll = this._apirestService.getAllWaytoPay().pipe(
+    this.waytopayAll = this._apirestService.list().pipe(
       catchError((error: HttpErrorResponse) => {
         this.httpError = error;
         return EMPTY;

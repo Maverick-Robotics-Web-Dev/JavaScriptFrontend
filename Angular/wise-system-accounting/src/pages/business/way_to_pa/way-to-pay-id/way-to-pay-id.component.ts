@@ -19,7 +19,7 @@ export class WayToPayIdComponent implements OnInit {
   public httpError!: HttpErrorResponse;
 
   ngOnInit(): void {
-    this.waytopay = this._apirestService.getWaytoPay(this.id).pipe(
+    this.waytopay = this._apirestService.retrieve(this.id).pipe(
       catchError((error: HttpErrorResponse) => {
         this.httpError = error;
         return EMPTY;
