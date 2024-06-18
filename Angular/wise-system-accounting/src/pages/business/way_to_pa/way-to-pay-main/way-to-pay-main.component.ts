@@ -1,22 +1,23 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { WayToPayService } from '../../../../services/business/way-to-pay.service';
-import { WaytoPayAllModel } from '../../../../models/business/way-to-pay';
+import { WaytoPayRAllModel } from '../../../../models/business/way-to-pay';
 import { Router } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { EMPTY, Observable, catchError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NavBarComponent } from '../../../../components/nav-bar/nav-bar.component';
 
 @Component({
   selector: 'app-way-to-pay-main',
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, NavBarComponent],
   templateUrl: './way-to-pay-main.component.html',
   styleUrl: './way-to-pay-main.component.css',
 })
 export class WayToPayMainComponent implements OnInit {
   private _apirestService: WayToPayService = inject(WayToPayService);
   private _router: Router = inject(Router);
-  public waytopayAll!: Observable<WaytoPayAllModel>;
+  public waytopayAll!: Observable<WaytoPayRAllModel>;
   public httpError!: HttpErrorResponse;
 
   ngOnInit(): void {

@@ -1,9 +1,10 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { WayToPayService } from '../../../../services/business/way-to-pay.service';
-import { WaytoPayModel } from '../../../../models/business/way-to-pay';
+import { WaytoPayRModel } from '../../../../models/business/way-to-pay';
 import { EMPTY, Observable, catchError } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-way-to-pay-id',
@@ -14,8 +15,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class WayToPayIdComponent implements OnInit {
   @Input() id!: string;
-  public waytopay!: Observable<WaytoPayModel>;
+  public waytopay!: Observable<WaytoPayRModel>;
   private _apirestService: WayToPayService = inject(WayToPayService);
+  private _router: Router = inject(Router);
   public httpError!: HttpErrorResponse;
 
   ngOnInit(): void {
@@ -25,5 +27,9 @@ export class WayToPayIdComponent implements OnInit {
         return EMPTY;
       })
     );
+  }
+
+  backMain() {
+    this._router.navigate(['/way-to-pay/home']);
   }
 }

@@ -1,4 +1,5 @@
 @if(waytopay | async; as waytopayOnOne){
+<button type="button" (click)="backMain()">BACK</button>
 <div class="card" style="width: 18rem">
   <div class="card-body">
     <h5 class="card-title">{{ waytopayOnOne.data.name }}</h5>

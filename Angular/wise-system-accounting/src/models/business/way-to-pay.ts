@@ -1,11 +1,6 @@
-export interface WaytoPayModel {
-  ok: string;
-  data: WaytoPayOutputData;
-}
-
-export interface WaytoPayAllModel {
-  ok: string;
-  data: WaytoPayOutputData[];
+export interface WaytoPayInputData {
+  name: string;
+  description: null | string;
 }
 
 export interface WaytoPayOutputData {
@@ -14,12 +9,28 @@ export interface WaytoPayOutputData {
   status: boolean;
   status_description?: string;
   create_at: string;
-  update_at: null | string;
+  update_at?: string;
   name: string;
-  description: null | string;
+  description?: string;
 }
 
-export interface WaytoPayInputData {
-  name: string;
-  description: null | string;
+export interface WaytoPayRModel {
+  ok: string;
+  data: WaytoPayOutputData;
+}
+
+export interface WaytoPayRAllModel {
+  ok: string;
+  data: WaytoPayOutputData[];
+}
+
+export interface WaytoPayCUModel {
+  ok: string;
+  msg: string;
+  data: WaytoPayOutputData;
+}
+
+export interface WaytoPayDModel {
+  ok: string;
+  msg: string;
 }
