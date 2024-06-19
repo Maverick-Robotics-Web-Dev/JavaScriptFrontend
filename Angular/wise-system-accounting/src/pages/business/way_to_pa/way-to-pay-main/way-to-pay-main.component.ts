@@ -30,6 +30,10 @@ export class WayToPayMainComponent implements OnInit {
   }
 
   retrieve(id: number) {
-    this._router.navigate(['/way-to-pay', id]);
+    this._router.navigate(['/way-to-pay/detail', id]);
+  }
+
+  public create() {
+    this._router.navigate(['/way-to-pay/create']);
   }
 }

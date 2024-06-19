@@ -30,6 +30,6 @@ export class WayToPayIdComponent implements OnInit {
   }
 
   backMain() {
-    this._router.navigate(['/way-to-pay/home']);
+    this._router.navigate(['/way-to-pay']);
   }
 }

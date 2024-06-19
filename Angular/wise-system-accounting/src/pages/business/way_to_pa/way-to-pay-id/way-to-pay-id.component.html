@@ -12,11 +12,13 @@
   </div>
 </div>
 } @if(httpError){ @if(httpError.error.message){
+<button type="button" (click)="backMain()">BACK</button>
 <div>{{ httpError.status }}</div>
 <div>{{ httpError.statusText }}</div>
 <div>{{ httpError.url }}</div>
 
 } @else{
+<button type="button" (click)="backMain()">BACK</button>
 <div>{{ httpError.error.msg }}</div>
 <div>{{ httpError.status }}</div>
 <div>{{ httpError.statusText }}</div>
