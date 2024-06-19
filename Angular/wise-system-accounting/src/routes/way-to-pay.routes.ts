@@ -9,5 +9,3 @@ export const routes: Routes = [
   { path: '**', redirectTo: '', pathMatch: 'full' },
   // { path: '**', loadComponent: pagenotfoundComponent },
 ];
-
-console.log(routes[1].path);

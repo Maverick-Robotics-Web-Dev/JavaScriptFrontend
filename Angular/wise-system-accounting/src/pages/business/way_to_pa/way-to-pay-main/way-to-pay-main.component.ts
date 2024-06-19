@@ -1,11 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { WayToPayService } from '../../../../services/business/way-to-pay.service';
 import { WaytoPayRAllModel } from '../../../../models/business/way-to-pay';
 import { Router } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { EMPTY, Observable, catchError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NavBarComponent } from '../../../../components/nav-bar/nav-bar.component';
+import { WayToPayService } from '../../../../services/business';
 
 @Component({
   selector: 'app-way-to-pay-main',

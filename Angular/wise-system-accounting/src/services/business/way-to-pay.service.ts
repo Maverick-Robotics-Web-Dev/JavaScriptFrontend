@@ -10,7 +10,7 @@ import { WaytoPayCUModel, WaytoPayDModel, WaytoPayInputData, WaytoPayRAllModel, 
 })
 export class WayToPayService {
   private readonly _httpClient: HttpClient = inject(HttpClient);
-  private businessURL: string = `${environment.apiBaseURL}/business/way-to-pay`;
+  private businessURL: string = `${environment.apiBaseURL}/business/way-to-pay/`;
 
   public list(): Observable<WaytoPayRAllModel> {
     const waytopaylist: Observable<WaytoPayRAllModel> = this._httpClient.get<WaytoPayRAllModel>(this.businessURL);
@@ -25,6 +25,8 @@ export class WayToPayService {
   }
 
   public create(data: WaytoPayInputData): Observable<WaytoPayCUModel> {
+    console.log(this.businessURL);
+
     const waytopayCreate: Observable<WaytoPayCUModel> = this._httpClient.post<WaytoPayCUModel>(`${this.businessURL}`, data);
 
     return waytopayCreate;

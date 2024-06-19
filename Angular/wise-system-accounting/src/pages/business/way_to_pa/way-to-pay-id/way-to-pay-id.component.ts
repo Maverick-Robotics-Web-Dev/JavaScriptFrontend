@@ -1,10 +1,10 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
-import { WayToPayService } from '../../../../services/business/way-to-pay.service';
 import { WaytoPayRModel } from '../../../../models/business/way-to-pay';
 import { EMPTY, Observable, catchError } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
+import { WayToPayService } from '../../../../services/business';
 
 @Component({
   selector: 'app-way-to-pay-id',

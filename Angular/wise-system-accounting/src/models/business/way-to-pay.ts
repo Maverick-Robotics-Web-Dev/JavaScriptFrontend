@@ -1,6 +1,7 @@
 export interface WaytoPayInputData {
   name: string;
   description: null | string;
+  fk_user_employee: string;
 }
 
 export interface WaytoPayOutputData {
