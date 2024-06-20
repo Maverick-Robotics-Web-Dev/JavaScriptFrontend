@@ -15,13 +15,13 @@ import { WayToPayService } from '../../../../services/business';
 })
 export class WayToPayIdComponent implements OnInit {
   @Input() id!: string;
-  public waytopay!: Observable<WaytoPayRModel>;
+  public waytopay$!: Observable<WaytoPayRModel>;
   private _apirestService: WayToPayService = inject(WayToPayService);
   private _router: Router = inject(Router);
   public httpError!: HttpErrorResponse;
 
   ngOnInit(): void {
-    this.waytopay = this._apirestService.retrieve(this.id).pipe(
+    this.waytopay$ = this._apirestService.retrieve(this.id).pipe(
       catchError((error: HttpErrorResponse) => {
         this.httpError = error;
         return EMPTY;

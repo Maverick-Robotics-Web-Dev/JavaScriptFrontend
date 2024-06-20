@@ -19,21 +19,19 @@ export class WayToPayService {
   }
 
   public retrieve(id: string): Observable<WaytoPayRModel> {
-    const waytopayRetrieve: Observable<WaytoPayRModel> = this._httpClient.get<WaytoPayRModel>(`${this.businessURL}/${id}`);
+    const waytopayRetrieve: Observable<WaytoPayRModel> = this._httpClient.get<WaytoPayRModel>(`${this.businessURL}${id}`);
 
     return waytopayRetrieve;
   }
 
   public create(data: WaytoPayInputData): Observable<WaytoPayCUModel> {
-    console.log(this.businessURL);
-
     const waytopayCreate: Observable<WaytoPayCUModel> = this._httpClient.post<WaytoPayCUModel>(`${this.businessURL}`, data);
 
     return waytopayCreate;
   }
 
   public partial_update(id: string, data: WaytoPayInputData): Observable<WaytoPayCUModel> {
-    const waytopayUpdate: Observable<WaytoPayCUModel> = this._httpClient.patch<WaytoPayCUModel>(`${this.businessURL}/${id}`, data);
+    const waytopayUpdate: Observable<WaytoPayCUModel> = this._httpClient.patch<WaytoPayCUModel>(`${this.businessURL}${id}`, data);
 
     return waytopayUpdate;
   }
