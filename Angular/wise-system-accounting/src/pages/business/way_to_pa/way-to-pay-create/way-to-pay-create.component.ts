@@ -23,7 +23,6 @@ export class WayToPayCreateComponent implements OnInit {
   private readonly _destroy: DestroyRef = inject(DestroyRef);
   public waytopayForm!: FormGroup;
   public httpError!: HttpErrorResponse;
-  public messageError!: Object;
 
   ngOnInit(): void {
     this.waytopayForm = this._formBuilder.group({

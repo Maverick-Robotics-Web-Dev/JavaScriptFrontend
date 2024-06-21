@@ -1,9 +1,11 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, DestroyRef, Input, OnInit, inject } from '@angular/core';
 import { EMPTY, Observable, catchError } from 'rxjs';
 import { WaytoPayRModel } from '../../../../models/business';
 import { WayToPayService } from '../../../../services/business';
 import { Router } from 'express';
 import { HttpErrorResponse } from '@angular/common/http';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-way-to-pay-edit',
@@ -14,17 +16,23 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class WayToPayEditComponent implements OnInit {
   @Input() id!: string;
-  public waytopay$!: Observable<WaytoPayRModel>;
   private _apirestService: WayToPayService = inject(WayToPayService);
   private _router: Router = inject(Router);
+  private readonly _destroy: DestroyRef = inject(DestroyRef);
   public httpError!: HttpErrorResponse;
 
   ngOnInit(): void {
-    this.waytopay$ = this._apirestService.retrieve(this.id).pipe(
-      catchError((error: HttpErrorResponse) => {
-        this.httpError = error;
-        return EMPTY;
-      })
-    );
+    catchError((error: HttpErrorResponse) => {
+      console.log(error);
+      return EMPTY;
+    });
+    // this._apirestService
+    //   .retrieve(this.id)
+    //   .pipe(takeUntilDestroyed(this._destroy))
+    //   .subscribe({
+    //     next: (response) => {
+    //       console.log(response);
+    //     },
+    //   });
   }
 }

@@ -23,17 +23,24 @@ export class WayToPayMainComponent implements OnInit {
   ngOnInit(): void {
     this.waytopayAll = this._apirestService.list().pipe(
       catchError((error: HttpErrorResponse) => {
+        console.log(error);
+
         this.httpError = error;
         return EMPTY;
       })
     );
   }
 
-  retrieve(id: number) {
+  public retrieve(id: number) {
     this._router.navigate(['/way-to-pay/detail', id]);
   }
 
   public create() {
     this._router.navigate(['/way-to-pay/create']);
+  }
+
+  public update(id: number) {
+    const ur = this._router.navigate(['/way-to-pay/editar', id]);
+    console.log(ur);
   }
 }
