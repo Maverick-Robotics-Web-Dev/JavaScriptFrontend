@@ -24,6 +24,7 @@ export class WayToPayEditComponent implements OnInit {
   public waytopayForm!: FormGroup;
   public waytopayData!: WaytoPayOutputData;
   public httpError!: HttpErrorResponse;
+  public loading: boolean = false;
 
   ngOnInit(): void {
     this.waytopayForm = this._formBuilder.group({
@@ -31,8 +32,6 @@ export class WayToPayEditComponent implements OnInit {
       description: [''],
       fk_user_employee: ['', Validators.required],
     });
-
-    console.log(this.id);
 
     if (this.id) {
       this._apirestService
@@ -43,6 +42,7 @@ export class WayToPayEditComponent implements OnInit {
             if (response.ok) {
               this.waytopayData = response.data;
               this.waytopayForm.patchValue(this.waytopayData);
+              this.loading = true;
             }
           },
           error: (error: HttpErrorResponse) => {

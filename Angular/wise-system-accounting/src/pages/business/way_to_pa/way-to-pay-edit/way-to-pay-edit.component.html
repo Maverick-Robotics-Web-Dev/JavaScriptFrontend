@@ -1,4 +1,7 @@
 <button type="button" (click)="backMain()">BACK</button>
+@if(!loading){
+<div>Loading...</div>
+} @if(loading){
 <div>
   <label for="">ID</label>
   <h1>{{ waytopayData.id }}</h1>
@@ -23,8 +26,7 @@
     <button type="submit">Guardar</button>
   </form>
 </div>
-
-@if(httpError){ @if(httpError.error.message){
+} @if(httpError){ @if(httpError.error.message){
 <button type="button" (click)="backMain()">BACK</button>
 <div>{{ httpError.status }}</div>
 <div>{{ httpError.statusText }}</div>
