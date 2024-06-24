@@ -23,8 +23,6 @@ export class WayToPayMainComponent implements OnInit {
   ngOnInit(): void {
     this.waytopayAll = this._apirestService.list().pipe(
       catchError((error: HttpErrorResponse) => {
-        console.log(error);
-
         this.httpError = error;
         return EMPTY;
       })
@@ -40,7 +38,6 @@ export class WayToPayMainComponent implements OnInit {
   }
 
   public update(id: number) {
-    const ur = this._router.navigate(['/way-to-pay/editar', id]);
-    console.log(ur);
+    this._router.navigate(['/way-to-pay/update', id]);
   }
 }

@@ -55,7 +55,6 @@ export class WayToPayCreateComponent implements OnInit {
           }
         },
         error: (error: HttpErrorResponse) => {
-          console.log(error);
           this.httpError = error;
         },
       });
