@@ -31,13 +31,13 @@ export class WayToPayService {
   }
 
   public partial_update(id: string, data: WaytoPayInputData): Observable<WaytoPayCUModel> {
-    const waytopayUpdate: Observable<WaytoPayCUModel> = this._httpClient.patch<WaytoPayCUModel>(`${this.businessURL}${id}`, data);
+    const waytopayUpdate: Observable<WaytoPayCUModel> = this._httpClient.patch<WaytoPayCUModel>(`${this.businessURL}${id}/`, data);
 
     return waytopayUpdate;
   }
 
   public destroy(id: string): Observable<WaytoPayDModel> {
-    const waytopayDelete: Observable<WaytoPayDModel> = this._httpClient.delete<WaytoPayDModel>(`${this.businessURL}/${id}`);
+    const waytopayDelete: Observable<WaytoPayDModel> = this._httpClient.delete<WaytoPayDModel>(`${this.businessURL}${id}/`);
 
     return waytopayDelete;
   }

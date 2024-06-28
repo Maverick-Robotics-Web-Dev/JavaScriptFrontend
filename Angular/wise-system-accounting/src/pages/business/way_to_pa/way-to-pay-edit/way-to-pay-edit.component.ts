@@ -1,12 +1,12 @@
-import { Component, DestroyRef, Input, OnInit, inject } from '@angular/core';
-import { EMPTY, Observable, catchError } from 'rxjs';
-import { WaytoPayOutputData, WaytoPayRModel } from '../../../../models/business';
-import { WayToPayService } from '../../../../services/business';
+import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AsyncPipe, JsonPipe } from '@angular/common';
-import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, DestroyRef, Input, OnInit, inject } from '@angular/core';
+import { EMPTY, Observable, catchError } from 'rxjs';
+import { WayToPayService } from '@services/business';
+import { WaytoPayInputData, WaytoPayOutputData } from '@models/business';
 
 @Component({
   selector: 'app-way-to-pay-edit',
@@ -21,8 +21,9 @@ export class WayToPayEditComponent implements OnInit {
   private _router: Router = inject(Router);
   private _formBuilder: FormBuilder = inject(FormBuilder);
   private readonly _destroy: DestroyRef = inject(DestroyRef);
+  private waytopayData!: WaytoPayInputData;
   public waytopayForm!: FormGroup;
-  public waytopayData!: WaytoPayOutputData;
+  public waytopayDataFill!: WaytoPayOutputData;
   public httpError!: HttpErrorResponse;
   public loading: boolean = false;
 
@@ -30,7 +31,7 @@ export class WayToPayEditComponent implements OnInit {
     this.waytopayForm = this._formBuilder.group({
       name: ['', Validators.required],
       description: [''],
-      fk_user_employee: ['', Validators.required],
+      // fk_user_employee: ['', Validators.required],
     });
 
     if (this.id) {
@@ -40,8 +41,8 @@ export class WayToPayEditComponent implements OnInit {
         .subscribe({
           next: (response) => {
             if (response.ok) {
-              this.waytopayData = response.data;
-              this.waytopayForm.patchValue(this.waytopayData);
+              this.waytopayDataFill = response.data;
+              this.waytopayForm.patchValue(this.waytopayDataFill);
               this.loading = true;
             }
           },
@@ -59,5 +60,21 @@ export class WayToPayEditComponent implements OnInit {
 
   public waytopayEdit(e: Event) {
     e.preventDefault();
+
+    this.waytopayData = this.waytopayForm.value;
+    this._apirestService
+      .partial_update(this.id, this.waytopayData)
+      .pipe(takeUntilDestroyed(this._destroy))
+      .subscribe({
+        next: (response) => {
+          if (response.ok) {
+            this.waytopayForm.reset();
+            this._router.navigate(['/way-to-pay']);
+          }
+        },
+        error: (error: HttpErrorResponse) => {
+          this.httpError = error;
+        },
+      });
   }
 }

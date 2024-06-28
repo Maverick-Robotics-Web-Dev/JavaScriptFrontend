@@ -1,7 +1,6 @@
 export interface WaytoPayInputData {
-  id?: number;
   name: string;
-  description?: null | string;
+  description?: string;
   status?: boolean;
   status_description?: string;
   create_at?: string;

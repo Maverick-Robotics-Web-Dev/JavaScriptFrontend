@@ -22,6 +22,7 @@
       <td>{{ waytopay.fk_user_employee }}</td>
       <td><button type="button" (click)="retrieve(waytopay.id)">Detalles</button></td>
       <td><button type="button" (click)="update(waytopay.id)">Editar</button></td>
+      <td><button type="button" (click)="delete($event, waytopay.id)">Eliminar</button></td>
     </tr>
     }
   </tbody>
