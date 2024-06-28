@@ -1,0 +1,1 @@
+export { getall } from './services';
