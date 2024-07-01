@@ -7,7 +7,6 @@ import { WaytoPayRAllModel } from '@models/business';
 import { WayToPayService } from '@services/business';
 import { NavBarComponent } from '@components/nav-bar/nav-bar.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { getall } from '@utils/wildcards';
 
 @Component({
   selector: 'app-way-to-pay-main',
@@ -20,28 +19,31 @@ export class WayToPayMainComponent implements OnInit {
   private _apirestService: WayToPayService = inject(WayToPayService);
   private _router: Router = inject(Router);
   private readonly _destroy: DestroyRef = inject(DestroyRef);
-  public waytopayAll!: any;
-  // public waytopayAll!: WaytoPayRAllModel;
-  public httpError!: any;
-  // public httpError!: HttpErrorResponse;
+  public waytopayAll!: WaytoPayRAllModel;
+  public httpError!: HttpErrorResponse;
   public loading: boolean = true;
 
   ngOnInit(): void {
-    const res = getall(this._apirestService, this._destroy);
-    // console.log(typeof res);
-    console.log(res);
+    this.getall();
+  }
 
-    // this._apirestService
-    //   .list()
-    //   .pipe(takeUntilDestroyed(this._destroy))
-    //   .subscribe({
-    //     next: (data) => {
-    //       this.waytopayAll = data;
-    //     },
-    //     error: (error: HttpErrorResponse) => {
-    //       this.httpError = error;
-    //     },
-    //   });
+  private getall() {
+    this._apirestService
+      .list()
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.httpError = error;
+          console.log(this.httpError);
+
+          return EMPTY;
+        }),
+        takeUntilDestroyed(this._destroy)
+      )
+      .subscribe({
+        next: (data) => {
+          this.waytopayAll = data;
+        },
+      });
   }
 
   public retrieve(id: number) {
