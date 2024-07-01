@@ -1,4 +1,4 @@
-import { Component, DestroyRef, Input, OnInit, inject } from '@angular/core';
+import { Component, DestroyRef, Input, OnInit, WritableSignal, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { EMPTY, Observable, catchError } from 'rxjs';
@@ -30,18 +30,13 @@ export class WayToPayMainComponent implements OnInit {
   private getall() {
     this._apirestService
       .list()
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          this.httpError = error;
-          console.log(this.httpError);
-
-          return EMPTY;
-        }),
-        takeUntilDestroyed(this._destroy)
-      )
+      .pipe(takeUntilDestroyed(this._destroy))
       .subscribe({
         next: (data) => {
           this.waytopayAll = data;
+        },
+        error: (err) => {
+          this.httpError = err;
         },
       });
   }
@@ -67,17 +62,7 @@ export class WayToPayMainComponent implements OnInit {
         next: (response) => {
           if (response.ok) {
             console.log(response.msg);
-            this._apirestService
-              .list()
-              .pipe(takeUntilDestroyed(this._destroy))
-              .subscribe({
-                next: (data) => {
-                  this.waytopayAll = data;
-                },
-                error: (error: HttpErrorResponse) => {
-                  this.httpError = error;
-                },
-              });
+            this.getall();
           }
         },
         error: (error: HttpErrorResponse) => {

@@ -1,16 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable, catchError } from 'rxjs';
 
 import { environment } from '../../environments/environment.development';
 import { WaytoPayCUModel, WaytoPayDModel, WaytoPayInputData, WaytoPayRAllModel, WaytoPayRModel } from '../../models/business';
+import { error } from 'node:console';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WayToPayService {
   private readonly _httpClient: HttpClient = inject(HttpClient);
-  private businessURL: string = `${environment.apiBaseURL}/business/way-to-payd/`;
+  private businessURL: string = `${environment.apiBaseURL}/business/way-to-pays/`;
 
   public list(): Observable<WaytoPayRAllModel> {
     const waytopaylist: Observable<WaytoPayRAllModel> = this._httpClient.get<WaytoPayRAllModel>(this.businessURL);
