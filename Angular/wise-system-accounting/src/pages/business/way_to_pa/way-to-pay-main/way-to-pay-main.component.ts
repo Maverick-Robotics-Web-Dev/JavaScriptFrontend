@@ -28,17 +28,17 @@ export class WayToPayMainComponent implements OnInit {
   }
 
   private getall() {
-    this._apirestService
-      .list()
-      .pipe(takeUntilDestroyed(this._destroy))
-      .subscribe({
-        next: (data) => {
-          this.waytopayAll = data;
-        },
-        error: (err) => {
-          this.httpError = err;
-        },
-      });
+    // this._apirestService
+    //   .list()
+    //   .pipe(takeUntilDestroyed(this._destroy))
+    //   .subscribe({
+    //     next: (data) => {
+    //       this.waytopayAll = data;
+    //     },
+    //     error: (err) => {
+    //       this.httpError = err;
+    //     },
+    //   });
   }
 
   public retrieve(id: number) {
