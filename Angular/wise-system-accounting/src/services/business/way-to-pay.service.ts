@@ -1,14 +1,20 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { DestroyRef, Injectable, WritableSignal, inject, signal } from '@angular/core';
+import { EMPTY, Observable, catchError, of } from 'rxjs';
 
 import { BaseService } from '@services/base.service';
-import { WaytoPayCUModel, WaytoPayDModel, WaytoPayInputData, WaytoPayRAllModel, WaytoPayRModel } from '@models/business';
+import { WaytoPayCUModel, WaytoPayDModel, WaytoPayInputData, WaytoPayRAllModel, WaytoPayRModel, waytopayEmptyAll } from '@models/business';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { StateData } from '@models/business/way-to-pay';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WayToPayService extends BaseService {
-  private businessURL: string = `${this.apiBaseURL}/business/way-to-pay/`;
+  private _destroy: DestroyRef = inject(DestroyRef);
+  private businessURL: string = `${this.apiBaseURL}/business/way-to-pays/`;
+  dataList: WritableSignal<WaytoPayRAllModel> = signal(waytopayEmptyAll);
+  error: WritableSignal<any> = signal({});
+  state: WritableSignal<StateData> = signal({ data: [], status: '' });
 
   public list(): Observable<WaytoPayRAllModel> {
     const waytopaylist: Observable<WaytoPayRAllModel> = this.httpClient.get<WaytoPayRAllModel>(this.businessURL);
@@ -34,7 +40,7 @@ export class WayToPayService extends BaseService {
     return waytopayUpdate;
   }
 
-  public destroy(id: string): Observable<WaytoPayDModel> {
+  public delete(id: string): Observable<WaytoPayDModel> {
     const waytopayDelete: Observable<WaytoPayDModel> = this.httpClient.delete<WaytoPayDModel>(`${this.businessURL}${id}/`);
 
     return waytopayDelete;

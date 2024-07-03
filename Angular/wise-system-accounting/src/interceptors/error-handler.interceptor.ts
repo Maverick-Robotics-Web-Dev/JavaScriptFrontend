@@ -7,5 +7,6 @@ function handleError(httpError: HttpErrorResponse): Observable<never> {
 
 export const errorHandlerInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
   const nextError: Observable<HttpEvent<unknown>> = next(req).pipe(catchError(handleError));
+
   return nextError;
 };

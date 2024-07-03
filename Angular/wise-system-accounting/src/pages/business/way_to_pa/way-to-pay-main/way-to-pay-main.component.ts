@@ -28,6 +28,10 @@ export class WayToPayMainComponent implements OnInit {
   }
 
   private getall() {
+    this._apirestService.list();
+    this.waytopayAll = this._apirestService.dataList();
+    console.log(this._apirestService.state());
+
     // this._apirestService
     //   .list()
     //   .pipe(takeUntilDestroyed(this._destroy))
@@ -56,7 +60,7 @@ export class WayToPayMainComponent implements OnInit {
   public delete(e: Event, id: number) {
     e.preventDefault();
     this._apirestService
-      .destroy(id.toString())
+      .delete(id.toString())
       .pipe(takeUntilDestroyed(this._destroy))
       .subscribe({
         next: (response) => {

@@ -19,14 +19,14 @@ export interface WaytoPayOutputData {
   description: string;
 }
 
-export interface WaytoPayRModel {
-  ok: string;
-  data: WaytoPayOutputData;
-}
-
 export interface WaytoPayRAllModel {
   ok: string;
   data: WaytoPayOutputData[];
+}
+
+export interface WaytoPayRModel {
+  ok: string;
+  data: WaytoPayOutputData;
 }
 
 export interface WaytoPayCUModel {
@@ -39,3 +39,13 @@ export interface WaytoPayDModel {
   ok: string;
   msg: string;
 }
+
+export interface StateData {
+  data: Array<any>;
+  status: string | any;
+}
+
+export const waytopayEmptyAll: WaytoPayRAllModel = {
+  ok: '',
+  data: [],
+};
