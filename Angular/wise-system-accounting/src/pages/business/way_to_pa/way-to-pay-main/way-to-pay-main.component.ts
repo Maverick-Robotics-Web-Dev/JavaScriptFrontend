@@ -1,7 +1,7 @@
 import { Component, DestroyRef, Input, OnInit, WritableSignal, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
-import { EMPTY, Observable, catchError } from 'rxjs';
+import { EMPTY, Observable, catchError, map, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { WaytoPayRAllModel } from '@models/business';
 import { WayToPayService } from '@services/business';
@@ -28,21 +28,17 @@ export class WayToPayMainComponent implements OnInit {
   }
 
   private getall() {
-    this._apirestService.list();
-    this.waytopayAll = this._apirestService.dataList();
-    console.log(this._apirestService.state());
-
-    // this._apirestService
-    //   .list()
-    //   .pipe(takeUntilDestroyed(this._destroy))
-    //   .subscribe({
-    //     next: (data) => {
-    //       this.waytopayAll = data;
-    //     },
-    //     error: (err) => {
-    //       this.httpError = err;
-    //     },
-    //   });
+    this._apirestService
+      .list()
+      .pipe(takeUntilDestroyed(this._destroy))
+      .subscribe({
+        next: (data) => {
+          this.waytopayAll = data;
+        },
+        error: (err) => {
+          this.httpError = err;
+        },
+      });
   }
 
   public retrieve(id: number) {

@@ -2,6 +2,8 @@ import { HttpErrorResponse, HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpReq
 import { Observable, catchError, throwError } from 'rxjs';
 
 function handleError(httpError: HttpErrorResponse): Observable<never> {
+  console.log(httpError);
+
   return throwError(() => httpError);
 }
 
