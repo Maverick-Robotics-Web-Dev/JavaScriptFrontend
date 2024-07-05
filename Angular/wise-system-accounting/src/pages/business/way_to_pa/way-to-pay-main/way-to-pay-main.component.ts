@@ -23,6 +23,7 @@ export class WayToPayMainComponent implements OnInit {
   public waytopayAll!: WaytoPayRAllModel;
   public httpError!: HttpErrorResponse;
   public loading: boolean = true;
+  public store: any;
 
   public _storeService: WayYoPayStoreService = inject(WayYoPayStoreService);
 
@@ -31,8 +32,9 @@ export class WayToPayMainComponent implements OnInit {
   }
 
   private getall() {
-    const store = this._storeService;
-    console.log(store);
+    this.store = this._storeService.getError();
+    console.log(this.store);
+
     // this._apirestService.list();
     // console.log(this._apirestService.error);
     // this._apirestService
