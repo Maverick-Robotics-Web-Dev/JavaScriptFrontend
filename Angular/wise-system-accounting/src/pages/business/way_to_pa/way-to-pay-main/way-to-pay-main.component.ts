@@ -1,17 +1,18 @@
 import { Component, DestroyRef, Input, OnInit, WritableSignal, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 import { EMPTY, Observable, catchError, map, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { WaytoPayRAllModel } from '@models/business';
 import { WayToPayService } from '@services/business';
 import { NavBarComponent } from '@components/nav-bar/nav-bar.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { WayYoPayStoreService } from '@services/business/way-yo-pay-store.service';
 
 @Component({
   selector: 'app-way-to-pay-main',
   standalone: true,
-  imports: [AsyncPipe, NavBarComponent],
+  imports: [AsyncPipe, NavBarComponent, JsonPipe],
   templateUrl: './way-to-pay-main.component.html',
   styleUrl: './way-to-pay-main.component.css',
 })
@@ -23,22 +24,28 @@ export class WayToPayMainComponent implements OnInit {
   public httpError!: HttpErrorResponse;
   public loading: boolean = true;
 
+  public _storeService: WayYoPayStoreService = inject(WayYoPayStoreService);
+
   ngOnInit(): void {
     this.getall();
   }
 
   private getall() {
-    this._apirestService
-      .list()
-      .pipe(takeUntilDestroyed(this._destroy))
-      .subscribe({
-        next: (data) => {
-          this.waytopayAll = data;
-        },
-        error: (err) => {
-          this.httpError = err;
-        },
-      });
+    const store = this._storeService;
+    console.log(store);
+    // this._apirestService.list();
+    // console.log(this._apirestService.error);
+    // this._apirestService
+    //   .list()
+    //   .pipe(takeUntilDestroyed(this._destroy))
+    //   .subscribe({
+    //     next: (data) => {
+    //       this.waytopayAll = data;
+    //     },
+    //     error: (err) => {
+    //       this.httpError = err;
+    //     },
+    //   });
   }
 
   public retrieve(id: number) {
