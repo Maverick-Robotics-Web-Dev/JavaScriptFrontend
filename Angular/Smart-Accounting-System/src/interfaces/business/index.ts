@@ -1,9 +1,1 @@
-export {
-  WaytoPayCUModel,
-  WaytoPayDModel,
-  WaytoPayInputData,
-  WaytoPayOutputData,
-  WaytoPayRAllModel,
-  WaytoPayRModel,
-  waytopayEmptyAll,
-} from './way-to-pay';
+export { WaytoPayDel, WaytoPayInputData, WaytoPayOutputData, WaytoPayRAll, WaytoPayCRU } from './way-to-pay';

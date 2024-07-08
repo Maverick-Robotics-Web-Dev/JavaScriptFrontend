@@ -21,34 +21,25 @@ export interface WaytoPayOutputData {
   description: string;
 }
 
-export interface WaytoPayRAllModel {
+export interface WaytoPayRAll {
   ok: string;
   msg?: string;
   data: WaytoPayOutputData[];
 }
 
-export interface WaytoPayRModel {
+export interface WaytoPayCRU {
   ok: string;
+  msg?: string;
   data: WaytoPayOutputData;
 }
 
-export interface WaytoPayCUModel {
+// export interface WaytoPayCUModel {
+//   ok: string;
+//   msg: string;
+//   data: WaytoPayOutputData;
+// }
+
+export interface WaytoPayDel {
   ok: string;
   msg: string;
-  data: WaytoPayOutputData;
 }
-
-export interface WaytoPayDModel {
-  ok: string;
-  msg: string;
-}
-
-export interface StateData {
-  data: WaytoPayRAllModel | HttpErrorResponse;
-  status: string;
-}
-
-// export const waytopayEmptyAll: WaytoPayRAllModel = {
-//   ok: '',
-//   data: [],
-// };
