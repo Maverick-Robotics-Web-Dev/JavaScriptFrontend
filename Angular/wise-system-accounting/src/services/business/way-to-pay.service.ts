@@ -7,7 +7,7 @@ import { WaytoPayCUModel, WaytoPayDModel, WaytoPayInputData, WaytoPayRAllModel, 
   providedIn: 'root',
 })
 export class WayToPayService extends BaseService {
-  private businessURL: string = `${this.apiBaseURL}/business/way-to-pay/6/`;
+  private businessURL: string = `${this.apiBaseURL}/business/way-to-pays/`;
 
   public list(): Observable<WaytoPayRAllModel> {
     const waytopaylist: Observable<WaytoPayRAllModel> = this.httpClient.get<WaytoPayRAllModel>(this.businessURL);

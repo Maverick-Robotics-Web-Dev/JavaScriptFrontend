@@ -1,3 +1,5 @@
+import { HttpErrorResponse } from '@angular/common/http';
+
 export interface WaytoPayInputData {
   name: string;
   description?: string;
@@ -41,8 +43,8 @@ export interface WaytoPayDModel {
 }
 
 export interface StateData {
-  data: Array<any>;
-  status: string | any;
+  data: WaytoPayRAllModel | HttpErrorResponse;
+  status: string;
 }
 
 export const waytopayEmptyAll: WaytoPayRAllModel = {

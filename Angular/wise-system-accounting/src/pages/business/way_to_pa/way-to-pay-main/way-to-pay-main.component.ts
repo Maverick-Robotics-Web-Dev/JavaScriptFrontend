@@ -1,4 +1,4 @@
-import { Component, DestroyRef, Input, OnInit, WritableSignal, inject, signal } from '@angular/core';
+import { Component, DestroyRef, Input, OnInit, Signal, WritableSignal, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { EMPTY, Observable, catchError, map, tap } from 'rxjs';
@@ -24,16 +24,22 @@ export class WayToPayMainComponent implements OnInit {
   public httpError!: HttpErrorResponse;
   public loading: boolean = true;
   public store: any;
+  public status!: Signal<string>;
+  public data!: Signal<WaytoPayRAllModel | HttpErrorResponse>;
 
   public _storeService: WayYoPayStoreService = inject(WayYoPayStoreService);
 
   ngOnInit(): void {
-    this.getall();
+    this.status = this._storeService.getStatus();
+    this.data = this._storeService.getData();
   }
 
-  private getall() {
-    this.store = this._storeService.getError();
-    console.log(this.store);
+  public getall() {
+    console.log(this.status());
+
+    if (this.status() == 'error') {
+      console.log('ERROR');
+    }
 
     // this._apirestService.list();
     // console.log(this._apirestService.error);
@@ -71,7 +77,7 @@ export class WayToPayMainComponent implements OnInit {
         next: (response) => {
           if (response.ok) {
             console.log(response.msg);
-            this.getall();
+            // this.getall();
           }
         },
         error: (error: HttpErrorResponse) => {

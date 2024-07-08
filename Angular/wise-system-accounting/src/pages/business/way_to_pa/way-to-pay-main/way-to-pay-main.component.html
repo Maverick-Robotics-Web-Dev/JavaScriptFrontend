@@ -38,5 +38,9 @@
 <div>{{ httpError.status }}</div>
 <div>{{ httpError.statusText }}</div>
 <div>{{ httpError.url }}</div>
-} }
-<div>{{ store }}</div>
+} } @if(status()=='error'){
+<div>
+  <h1>{{ data() | json }}</h1>
+  <h1>{{ status() }}</h1>
+</div>
+}
