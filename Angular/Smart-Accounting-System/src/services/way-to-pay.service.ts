@@ -24,10 +24,17 @@ export class WayToPayService extends BaseService {
       .pipe(takeUntilDestroyed(this._destroy))
       .subscribe({
         next: (data: WaytoPayRAll) => {
-          console.log(data);
+          if (data.ok) {
+            console.log(data);
+          }
         },
         error: (err: HttpErrorResponse) => {
-          console.log(err);
+          if (err instanceof Error) {
+            console.log(`Error ${err}`);
+          }
+          if (err instanceof HttpErrorResponse) {
+            console.log('Http', err);
+          }
         },
       });
   }
