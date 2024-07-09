@@ -1,11 +1,13 @@
 export interface WaytoPaySignalState {
   data: any;
+  msg?: string;
   status: string;
   error: any;
 }
 
 export const waytopayDefaultState: WaytoPaySignalState = {
-  data: [],
+  data: '',
+  msg: '',
   status: 'loading',
-  error: {},
+  error: '',
 };

@@ -27,14 +27,14 @@
     }
   </tbody>
 </table>
-} @if(httpError){ @if(httpError.error.message){
+} @if(httpError){ @if(httpError.error?.message){
 <div>{{ httpError.message }}</div>
 <div>{{ httpError.status }}</div>
 <div>{{ httpError.statusText }}</div>
 <div>{{ httpError.url }}</div>
 
 } @else{
-<div>{{ httpError.error.msg }}</div>
+<div>{{ httpError.error?.msg }}</div>
 <div>{{ httpError.status }}</div>
 <div>{{ httpError.statusText }}</div>
 <div>{{ httpError.url }}</div>

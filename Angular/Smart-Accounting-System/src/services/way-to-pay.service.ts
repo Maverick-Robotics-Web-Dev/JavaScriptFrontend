@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { DestroyRef, inject, Injectable, signal } from '@angular/core';
+import { computed, DestroyRef, inject, Injectable, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { WaytoPayCRU, WaytoPayDel, WaytoPayInputData, WaytoPayRAll } from '@interfaces/business';
 import { waytopayDefaultState, WaytoPaySignalState } from '@interfaces/signals';
@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class WayToPayService extends BaseService {
-  private businessURL: string = `${this.apiBaseURL}/business/way-to-pays/`;
+  private businessURL: string = `${this.apiBaseURL}/business/way-to-pay/`;
   private _destroy: DestroyRef = inject(DestroyRef);
   private state = signal<WaytoPaySignalState>(waytopayDefaultState);
 
@@ -23,9 +23,15 @@ export class WayToPayService extends BaseService {
       .get<WaytoPayRAll>(this.businessURL)
       .pipe(takeUntilDestroyed(this._destroy))
       .subscribe({
-        next: (data: WaytoPayRAll) => {
-          if (data.ok) {
-            console.log(data);
+        next: (resp: WaytoPayRAll) => {
+          if (resp.ok) {
+            if (resp.msg) {
+              this.state.set({ data: resp.data, msg: resp.msg, status: 'success', error: {} });
+              console.log(this.state());
+            } else {
+              this.state.set({ data: resp.data, status: 'success', error: {} });
+              console.log(this.state());
+            }
           }
         },
         error: (err: HttpErrorResponse) => {
@@ -33,16 +39,41 @@ export class WayToPayService extends BaseService {
             console.log(`Error ${err}`);
           }
           if (err instanceof HttpErrorResponse) {
-            console.log('Http', err);
+            // const error = { error: err.error, status: err.status, text: err.statusText, url: err.url };
+            this.state.set({ data: [], status: 'error', error: err });
+            console.log(this.state());
           }
         },
       });
   }
 
-  public retrieve(id: string): Observable<WaytoPayCRU> {
-    const waytopayRetrieve: Observable<WaytoPayCRU> = this.httpClient.get<WaytoPayCRU>(`${this.businessURL}${id}`);
-
-    return waytopayRetrieve;
+  public retrieve(id: string): void {
+    this.httpClient
+      .get<WaytoPayCRU>(`${this.businessURL}${id}`)
+      .pipe(takeUntilDestroyed(this._destroy))
+      .subscribe({
+        next: (resp: WaytoPayCRU) => {
+          if (resp.ok) {
+            if (resp.msg) {
+              this.state.set({ data: resp.data, msg: resp.msg, status: 'success', error: {} });
+              console.log(this.state());
+            } else {
+              this.state.set({ data: resp.data, status: 'success', error: {} });
+              console.log(this.state());
+            }
+          }
+        },
+        error: (err: HttpErrorResponse) => {
+          if (err instanceof Error) {
+            console.log(`Error ${err}`);
+          }
+          if (err instanceof HttpErrorResponse) {
+            // const error = { error: err.error, status: err.status, text: err.statusText, url: err.url };
+            this.state.set({ data: [], status: 'error', error: err });
+            console.log(this.state());
+          }
+        },
+      });
   }
 
   public create(data: WaytoPayInputData): Observable<WaytoPayCRU> {
@@ -61,5 +92,13 @@ export class WayToPayService extends BaseService {
     const waytopayDelete: Observable<WaytoPayDel> = this.httpClient.delete<WaytoPayDel>(`${this.businessURL}${id}/`);
 
     return waytopayDelete;
+  }
+
+  public getState() {
+    const data = computed(() => this.state().data);
+    const msg = computed(() => this.state().msg);
+    const status = computed(() => this.state().status);
+    const error = computed(() => this.state().error);
+    return { data, msg, status, error };
   }
 }

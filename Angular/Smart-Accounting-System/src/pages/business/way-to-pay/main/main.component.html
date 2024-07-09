@@ -1,1 +1,44 @@
-<p>main works!</p>
+<h1>Formas de pago</h1>
+@if(status()=='loading'){
+<h2>Loading...</h2>
+} @if(status()=='success'){ @if(msg()){
+<h2>{{ msg() }}</h2>
+}@else {
+<table class="table">
+  <thead>
+    <tr class="table-dark">
+      <th class="text-center" scope="col">ID</th>
+      <th class="text-center" scope="col">Nombre</th>
+      <th class="text-center" scope="col">Descripcion</th>
+      <th class="text-center" scope="col">Creado Por</th>
+      <th class="text-center" scope="col">Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (waytopay of waytopayAll(); track $index) {
+    <tr>
+      <th class="text-center" scope="row">{{ waytopay.id }}</th>
+      <td class="text-center">{{ waytopay.name }}</td>
+      <td class="text-center">{{ waytopay.description }}</td>
+      <td class="text-center">{{ waytopay.fk_user_employee }}</td>
+      <td class="text-center">
+        <button type="button" class="btn btn-info m-1" (click)="retrieve($event, waytopay.id)">Detalle</button>
+        <button type="button" class="btn btn-primary m-1" (click)="update($event, waytopay.id)">Actualizar</button>
+        <button type="button" class="btn btn-danger m-1">Eliminar</button>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>
+} } @if(httpError()){ @if(httpError().error?.message){
+<div>{{ httpError().message }}</div>
+<div>{{ httpError().status }}</div>
+<div>{{ httpError().statusText }}</div>
+<div>{{ httpError().url }}</div>
+
+} @else{
+<div>{{ httpError().error?.msg }}</div>
+<div>{{ httpError().status }}</div>
+<div>{{ httpError().statusText }}</div>
+<div>{{ httpError().url }}</div>
+} }
