@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { computed, DestroyRef, inject, Injectable, signal } from '@angular/core';
+import { computed, DestroyRef, inject, Injectable, Signal, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { WaytoPayCRU, WaytoPayDel, WaytoPayInputData, WaytoPayRAll } from '@interfaces/business';
 import { waytopayDefaultState, WaytoPaySignalState } from '@interfaces/signals';
@@ -13,6 +13,7 @@ export class WayToPayService extends BaseService {
   private businessURL: string = `${this.apiBaseURL}/business/way-to-pay/`;
   private _destroy: DestroyRef = inject(DestroyRef);
   private state = signal<WaytoPaySignalState>(waytopayDefaultState);
+  data: Signal<any> = computed(() => this.state().data);
 
   constructor() {
     super();
@@ -28,15 +29,15 @@ export class WayToPayService extends BaseService {
             if (resp.msg) {
               this.state.set({ data: resp.data, msg: resp.msg, status: 'success', error: {} });
               console.log(this.state());
-            } else {
-              this.state.set({ data: resp.data, status: 'success', error: {} });
-              console.log(this.state());
             }
+            this.state.set({ data: resp.data, status: 'success', error: {} });
+            console.log(this.state());
           }
         },
-        error: (err: HttpErrorResponse) => {
+        error: (err) => {
           if (err instanceof Error) {
             console.log(`Error ${err}`);
+            this.state.set({ data: [], status: 'error', error: err });
           }
           if (err instanceof HttpErrorResponse) {
             // const error = { error: err.error, status: err.status, text: err.statusText, url: err.url };
@@ -95,10 +96,10 @@ export class WayToPayService extends BaseService {
   }
 
   public getState() {
-    const data = computed(() => this.state().data);
-    const msg = computed(() => this.state().msg);
-    const status = computed(() => this.state().status);
-    const error = computed(() => this.state().error);
+    let data: Signal<any> = computed(() => this.state().data);
+    let msg: Signal<string | undefined> = computed(() => this.state().msg);
+    let status: Signal<string> = computed(() => this.state().status);
+    let error: Signal<any> = computed(() => this.state().error);
     return { data, msg, status, error };
   }
 }

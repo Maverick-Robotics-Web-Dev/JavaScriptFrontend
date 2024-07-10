@@ -3,7 +3,7 @@
 <h2>Loading...</h2>
 } @if(status()=='success'){ @if(msg()){
 <h2>{{ msg() }}</h2>
-}@else {
+} @if(status()=='success') {
 <table class="table">
   <thead>
     <tr class="table-dark">
@@ -15,7 +15,7 @@
     </tr>
   </thead>
   <tbody>
-    @for (waytopay of waytopayAll(); track $index) {
+    @for (waytopay of waytopayAll(); track waytopay.id) {
     <tr>
       <th class="text-center" scope="row">{{ waytopay.id }}</th>
       <td class="text-center">{{ waytopay.name }}</td>
