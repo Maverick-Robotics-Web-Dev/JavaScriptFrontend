@@ -15,19 +15,12 @@ export class DetailComponent implements OnInit {
   @Input() id!: string;
   private _apirestService: WayToPayService = inject(WayToPayService);
   private _router: Router = inject(Router);
-  public waytopayAll!: Signal<WaytoPayOutputData[]>;
+  public waytopayAll!: Signal<WaytoPayOutputData>;
   public msg!: Signal<String | undefined>;
   public status!: Signal<String>;
   public httpError!: Signal<HttpErrorResponse>;
 
   ngOnInit(): void {
     this._apirestService.retrieve(this.id);
-    let { data, msg, status, error } = this._apirestService.getState();
-    this.waytopayAll = data;
-    this.msg = msg;
-    this.status = status;
-    this.httpError = error;
-    console.log(data());
-    console.log(error());
   }
 }

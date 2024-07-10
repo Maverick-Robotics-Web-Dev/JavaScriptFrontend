@@ -41,3 +41,14 @@ export interface WaytoPayDel {
   ok: string;
   msg: string;
 }
+
+export const EmptyDataW = {
+  id: 0,
+  fk_user_employee: 0,
+  status: false,
+  status_description: '',
+  create_at: '',
+  update_at: '',
+  name: '',
+  description: '',
+};

@@ -14,12 +14,12 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './main.component.scss',
 })
 export class MainComponent implements OnInit {
-  private _apirestService: WayToPayService = inject(WayToPayService);
+  public _apirestService: WayToPayService = inject(WayToPayService);
   private _router: Router = inject(Router);
-  public waytopayAll!: Signal<WaytoPayOutputData[]>;
-  public msg!: Signal<String | undefined>;
-  public status!: Signal<String>;
-  public httpError!: Signal<HttpErrorResponse>;
+  // public waytopayAll = this._apirestService.data();
+  // public msg = this._apirestService.msg();
+  // public status = this._apirestService.status();
+  // public httpError = this._apirestService.error();
 
   ngOnInit(): void {
     this.getList();
@@ -27,12 +27,6 @@ export class MainComponent implements OnInit {
 
   private getList(): void {
     this._apirestService.list();
-    let { data, msg, status, error } = this._apirestService.getState();
-    this.waytopayAll = data;
-    this.msg = msg;
-    this.status = status;
-    this.httpError = error;
-    console.log(data());
   }
 
   public retrieve(e: Event, id: number) {

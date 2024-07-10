@@ -12,8 +12,11 @@ import { Observable } from 'rxjs';
 export class WayToPayService extends BaseService {
   private businessURL: string = `${this.apiBaseURL}/business/way-to-pay/`;
   private _destroy: DestroyRef = inject(DestroyRef);
-  private state = signal<WaytoPaySignalState>(waytopayDefaultState);
-  data: Signal<any> = computed(() => this.state().data);
+  private state = signal<WaytoPaySignalState>({ data: [], msg: '', status: 'loading', error: {} });
+  public data = computed(() => this.state().data);
+  public msg = computed(() => this.state().msg);
+  public status = computed(() => this.state().status);
+  public error = computed(() => this.state().error);
 
   constructor() {
     super();
@@ -70,7 +73,7 @@ export class WayToPayService extends BaseService {
           }
           if (err instanceof HttpErrorResponse) {
             // const error = { error: err.error, status: err.status, text: err.statusText, url: err.url };
-            this.state.set({ data: [], status: 'error', error: err });
+            this.state.set({ data: {}, status: 'error', error: err });
             console.log(this.state());
           }
         },
@@ -95,11 +98,11 @@ export class WayToPayService extends BaseService {
     return waytopayDelete;
   }
 
-  public getState() {
-    let data: Signal<any> = computed(() => this.state().data);
-    let msg: Signal<string | undefined> = computed(() => this.state().msg);
-    let status: Signal<string> = computed(() => this.state().status);
-    let error: Signal<any> = computed(() => this.state().error);
-    return { data, msg, status, error };
-  }
+  // public getState() {
+  //   let data: Signal<any> = computed(() => this.state().data);
+  //   let msg: Signal<string | undefined> = computed(() => this.state().msg);
+  //   let status: Signal<string> = computed(() => this.state().status);
+  //   let error: Signal<any> = computed(() => this.state().error);
+  //   return { data, msg, status, error };
+  // }
 }
