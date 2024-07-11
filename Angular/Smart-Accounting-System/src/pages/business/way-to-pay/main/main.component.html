@@ -1,5 +1,9 @@
 <h1>Formas de pago</h1>
-@if(_apirestService.status()=='loading'){
+<div>{{ _apirestService.listData() | json }}</div>
+<div>{{ _apirestService.listWaytoPay().data | json }}</div>
+<div>{{ _apirestService.getState().listData() | json }}</div>
+
+<!-- @if(_apirestService.status()=='loading'){
 <h2>Loading...</h2>
 } @if(_apirestService.status()=='success'){ @if(_apirestService.msg()){
 <h2>{{ _apirestService.msg() }}</h2>
@@ -43,4 +47,4 @@
 <div>{{ _apirestService.error().status }}</div>
 <div>{{ _apirestService.error().statusText }}</div>
 <div>{{ _apirestService.error().url }}</div>
-} }
+} } -->
