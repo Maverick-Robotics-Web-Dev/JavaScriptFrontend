@@ -1,11 +1,11 @@
-export interface WaytoPaySignalState {
+export interface SignalState {
   data: any;
   msg?: string;
   status: string;
   error: any;
 }
 
-export const waytopayDefaultState: WaytoPaySignalState = {
+export const defaultState: SignalState = {
   data: '',
   msg: '',
   status: 'loading',

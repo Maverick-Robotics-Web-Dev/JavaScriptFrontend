@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { computed, DestroyRef, inject, Injectable, Signal, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { WaytoPayCRU, WaytoPayDel, WaytoPayInputData, WaytoPayRAll } from '@interfaces/business';
-import { waytopayDefaultState, WaytoPaySignalState } from '@interfaces/signals';
+import { defaultState, SignalState } from '@interfaces/signals';
 import { BaseService } from '@shared/services';
 import { Observable } from 'rxjs';
 
@@ -12,9 +12,10 @@ import { Observable } from 'rxjs';
 export class WayToPayService extends BaseService {
   private businessURL: string = `${this.apiBaseURL}/business/way-to-pay/`;
   private _destroy: DestroyRef = inject(DestroyRef);
-  public listWaytoPay = signal<WaytoPaySignalState>({ data: [], msg: '', status: 'loading', error: {} });
-  listData: Signal<any> = computed(() => this.listWaytoPay().data);
-  private retrieveWaytoPay = signal<WaytoPaySignalState>({ data: {}, msg: '', status: 'loading', error: {} });
+  private listWaytoPay = signal<SignalState>(defaultState);
+  private retrieveWaytoPay = signal<SignalState>(defaultState);
+  public listData = computed(() => this.listWaytoPay().data);
+  public retrievetData = computed(() => this.retrieveWaytoPay().data);
 
   constructor() {
     super();
@@ -90,13 +91,15 @@ export class WayToPayService extends BaseService {
     return waytopayDelete;
   }
 
-  public getState() {
-    let listData: Signal<any> = computed(() => this.listWaytoPay().data);
-    console.log(listData());
+  // public getState() {
+  //   let listData: Signal<any> = computed(() => this.listWaytoPay().data);
+  //   let retrievetData: Signal<any> = computed(() => this.retrieveWaytoPay().data);
+  //   console.log(listData());
+  //   console.log(retrievetData());
 
-    // let msg: Signal<string | undefined> = computed(() => this.state().msg);
-    // let status: Signal<string> = computed(() => this.state().status);
-    // let error: Signal<any> = computed(() => this.state().error);
-    return { listData };
-  }
+  //   // let msg: Signal<string | undefined> = computed(() => this.state().msg);
+  //   // let status: Signal<string> = computed(() => this.state().status);
+  //   // let error: Signal<any> = computed(() => this.state().error);
+  //   return { listData, retrievetData };
+  // }
 }

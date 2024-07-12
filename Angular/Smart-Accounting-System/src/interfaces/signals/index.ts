@@ -1,1 +1,1 @@
-export { WaytoPaySignalState, waytopayDefaultState } from './state-data';
+export { SignalState, defaultState } from './state-data';

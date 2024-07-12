@@ -1,9 +1,6 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, DestroyRef, effect, inject, OnInit, Signal } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { WaytoPayOutputData } from '@interfaces/business';
 import { WayToPayService } from '@services/index';
-import { EditComponent } from '@pages/business/way-to-pay/edit';
 import { AsyncPipe, JsonPipe } from '@angular/common';
 
 @Component({
@@ -16,19 +13,14 @@ import { AsyncPipe, JsonPipe } from '@angular/common';
 export class MainComponent implements OnInit {
   public _apirestService: WayToPayService = inject(WayToPayService);
   private _router: Router = inject(Router);
-  public waytopayAll!: any;
-  public waytopayAllT!: WaytoPayOutputData[];
-  // public msg = this._apirestService.msg();
-  // public status = this._apirestService.status();
-  // public httpError = this._apirestService.error();
 
   ngOnInit(): void {
-    this._apirestService.list();
+    this.getList();
   }
 
-  // private getList(): void {
-  //   this._apirestService.list(this._destroy);
-  // }
+  private getList(): void {
+    this._apirestService.list();
+  }
 
   public retrieve(e: Event, id: number) {
     e.preventDefault();
