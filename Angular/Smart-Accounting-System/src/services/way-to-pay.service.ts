@@ -17,7 +17,7 @@ export class WayToPayService extends BaseService {
   private _router: Router = inject(Router);
   private listWaytoPay = signal<SignalState>(defaultState);
   private retrieveWaytoPay = signal<SignalState>(defaultState);
-  private createWaytoPay = signal<SignalState>(defaultState);
+  public createWaytoPay = signal<SignalState>(defaultState);
   public listData = computed(() => this.listWaytoPay());
   public retrievetData = computed(() => this.retrieveWaytoPay());
   public createData = computed(() => this.createWaytoPay());
@@ -86,13 +86,14 @@ export class WayToPayService extends BaseService {
       .subscribe({
         next: (resp: WaytoPayCRU) => {
           if (resp.ok) {
-            waytopayForm.reset();
-            this._router.navigate(['/admin/way-to-pay']);
-            // if (resp.msg) {
-            //   this.createWaytoPay.set({ data: resp.data, msg: resp.msg, status: 'success', error: {} });
-            // } else {
-            //   this.createWaytoPay.set({ data: resp.data, status: 'success', error: {} });
-            // }
+            console.log(resp);
+            // waytopayForm.reset();
+            // this._router.navigate(['/admin/way-to-pay']);
+            if (resp.msg) {
+              this.createWaytoPay.set({ data: resp.data, msg: resp.msg, status: 'success', error: {} });
+            } else {
+              this.createWaytoPay.set({ data: resp.data, status: 'success', error: {} });
+            }
           }
         },
         error: (err: HttpErrorResponse) => {

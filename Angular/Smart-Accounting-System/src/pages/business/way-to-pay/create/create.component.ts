@@ -13,7 +13,7 @@ import { WayToPayService } from '@services/way-to-pay.service';
 })
 export class CreateComponent implements OnInit {
   public _apirestService: WayToPayService = inject(WayToPayService);
-  private _router: Router = inject(Router);
+  public _router: Router = inject(Router);
   private _formBuilder: FormBuilder = inject(FormBuilder);
   public waytopayForm!: FormGroup;
   private waytopayData!: WaytoPayInputData;
@@ -24,6 +24,7 @@ export class CreateComponent implements OnInit {
       description: [''],
       fk_user_employee: ['', [Validators.required]],
     });
+    this._apirestService.createWaytoPay.set({ data: {}, msg: '', status: '', error: {} });
   }
 
   public backMain(e: Event) {

@@ -19,8 +19,8 @@
     <button type="button" class="btn btn-primary" (click)="backMain($event)">REGRESAR</button>
   </div>
 </form>
-<!-- @if(_apirestService.createData().status=='success'){
+@if(_apirestService.createData().status=='success'){
 <h1>{{ _apirestService.createData().msg }}</h1>
-{{ this.waytopayForm.reset() }}
-{{ this._router.navigate(["/admin/way-to-pay"]) }}
-} -->
+{{ waytopayForm.reset() }}
+{{ _router.navigate(["/admin/way-to-pay"]) }}
+}
