@@ -1,6 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { computed, DestroyRef, inject, Injectable, Signal, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { WaytoPayCRU, WaytoPayDel, WaytoPayInputData, WaytoPayRAll } from '@interfaces/business';
 import { defaultState, SignalState } from '@interfaces/signals';
 import { BaseService } from '@shared/services';
@@ -12,10 +14,13 @@ import { Observable } from 'rxjs';
 export class WayToPayService extends BaseService {
   private businessURL: string = `${this.apiBaseURL}/business/way-to-pay/`;
   private _destroy: DestroyRef = inject(DestroyRef);
+  private _router: Router = inject(Router);
   private listWaytoPay = signal<SignalState>(defaultState);
   private retrieveWaytoPay = signal<SignalState>(defaultState);
-  public listData = computed(() => this.listWaytoPay().data);
-  public retrievetData = computed(() => this.retrieveWaytoPay().data);
+  private createWaytoPay = signal<SignalState>(defaultState);
+  public listData = computed(() => this.listWaytoPay());
+  public retrievetData = computed(() => this.retrieveWaytoPay());
+  public createData = computed(() => this.createWaytoPay());
 
   constructor() {
     super();
@@ -64,6 +69,7 @@ export class WayToPayService extends BaseService {
         error: (err: HttpErrorResponse) => {
           if (err instanceof Error) {
             console.log(`Error ${err}`);
+            this.retrieveWaytoPay.set({ data: {}, status: 'error', error: err });
           }
           if (err instanceof HttpErrorResponse) {
             // const error = { error: err.error, status: err.status, text: err.statusText, url: err.url };
@@ -73,10 +79,33 @@ export class WayToPayService extends BaseService {
       });
   }
 
-  public create(data: WaytoPayInputData): Observable<WaytoPayCRU> {
-    const waytopayCreate: Observable<WaytoPayCRU> = this.httpClient.post<WaytoPayCRU>(`${this.businessURL}`, data);
-
-    return waytopayCreate;
+  public create(data: WaytoPayInputData, waytopayForm: FormGroup) {
+    this.httpClient
+      .post<WaytoPayCRU>(`${this.businessURL}`, data)
+      .pipe(takeUntilDestroyed(this._destroy))
+      .subscribe({
+        next: (resp: WaytoPayCRU) => {
+          if (resp.ok) {
+            waytopayForm.reset();
+            this._router.navigate(['/admin/way-to-pay']);
+            // if (resp.msg) {
+            //   this.createWaytoPay.set({ data: resp.data, msg: resp.msg, status: 'success', error: {} });
+            // } else {
+            //   this.createWaytoPay.set({ data: resp.data, status: 'success', error: {} });
+            // }
+          }
+        },
+        error: (err: HttpErrorResponse) => {
+          if (err instanceof Error) {
+            console.log(`Error ${err}`);
+            this.createWaytoPay.set({ data: {}, status: 'error', error: err });
+          }
+          if (err instanceof HttpErrorResponse) {
+            // const error = { error: err.error, status: err.status, text: err.statusText, url: err.url };
+            this.createWaytoPay.set({ data: {}, status: 'error', error: err });
+          }
+        },
+      });
   }
 
   public partial_update(id: string, data: WaytoPayInputData): Observable<WaytoPayCRU> {

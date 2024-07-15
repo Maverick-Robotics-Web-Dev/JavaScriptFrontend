@@ -27,7 +27,8 @@ export class MainComponent implements OnInit {
     this._router.navigate(['/admin/way-to-pay/detail', id]);
   }
 
-  public create() {
+  public create(e: Event) {
+    e.preventDefault();
     this._router.navigate(['/admin/way-to-pay/create']);
   }
 
