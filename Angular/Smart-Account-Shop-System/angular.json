@@ -3,33 +3,11 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Smart-Accounting-System": {
+    "Smart-Account-Shop-System": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss",
-          "skipTests": true
-        },
-        "@schematics/angular:class": {
-          "skipTests": true
-        },
-        "@schematics/angular:directive": {
-          "skipTests": true
-        },
-        "@schematics/angular:guard": {
-          "skipTests": true
-        },
-        "@schematics/angular:interceptor": {
-          "skipTests": true
-        },
-        "@schematics/angular:pipe": {
-          "skipTests": true
-        },
-        "@schematics/angular:resolver": {
-          "skipTests": true
-        },
-        "@schematics/angular:service": {
-          "skipTests": true
+          "style": "scss"
         }
       },
       "root": "",
@@ -39,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/smart-accounting-system",
+            "outputPath": "dist/smart-account-shop-system",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [],
@@ -52,12 +30,7 @@
               }
             ],
             "styles": ["src/styles.scss"],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -93,10 +66,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "Smart-Accounting-System:build:production"
+              "buildTarget": "Smart-Account-Shop-System:build:production"
             },
             "development": {
-              "buildTarget": "Smart-Accounting-System:build:development"
+              "buildTarget": "Smart-Account-Shop-System:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -124,7 +97,6 @@
     }
   },
   "cli": {
-    "analytics": false,
     "cache": {
       "enabled": false
     }
