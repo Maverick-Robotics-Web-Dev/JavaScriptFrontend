@@ -86,7 +86,6 @@ export class WayToPayService extends BaseService {
       .subscribe({
         next: (resp: WaytoPayCRU) => {
           if (resp.ok) {
-            console.log(resp);
             // waytopayForm.reset();
             // this._router.navigate(['/admin/way-to-pay']);
             if (resp.msg) {

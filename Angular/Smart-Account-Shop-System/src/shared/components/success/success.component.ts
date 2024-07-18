@@ -13,6 +13,7 @@ import { timeout } from 'rxjs';
 export class SuccessComponent implements OnInit {
   private timeOut!: any;
   private _router: Router = inject(Router);
+  public title: InputSignal<string> = input.required<string>();
   public msg: InputSignal<string> = input.required<string>();
 
   ngOnInit(): void {
