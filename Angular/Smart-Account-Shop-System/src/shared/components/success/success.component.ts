@@ -1,4 +1,11 @@
-import { Component, inject, input, InputSignal, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  input,
+  InputSignal,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { timeout } from 'rxjs';
@@ -13,11 +20,15 @@ import { timeout } from 'rxjs';
 export class SuccessComponent implements OnInit {
   private timeOut!: any;
   private _router: Router = inject(Router);
+  public state = input.required<boolean>();
   public title: InputSignal<string> = input.required<string>();
-  public msg: InputSignal<string> = input.required<string>();
+  public msg: InputSignal<string | undefined> = input.required<
+    string | undefined
+  >();
 
   ngOnInit(): void {
-    this.closeWindow();
+    // this.state.set(true);
+    // this.closeWindow();
   }
 
   private closeWindow(): void {

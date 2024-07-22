@@ -11,6 +11,8 @@ import {
   withInterceptors,
 } from '@angular/common/http';
 import { serverErrorInterceptor } from '@shared/interceptors';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,5 +20,7 @@ export const appConfig: ApplicationConfig = {
     provideExperimentalZonelessChangeDetection(),
     provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(withFetch(), withInterceptors([serverErrorInterceptor])),
+    // provideAnimations(),
+    // provideAnimationsAsync()
   ],
 };

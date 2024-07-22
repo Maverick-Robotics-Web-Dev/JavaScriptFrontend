@@ -17,6 +17,22 @@
 //   transition: all 1s;
 // }
 
+.miModal-default {
+  position: fixed;
+  font-family: Arial, sans-serif;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 99999;
+  opacity: 0;
+  -webkit-transition: all 1s ease-in;
+  -moz-transition: all 1s ease-in;
+  transition: all 1s ease-in;
+  pointer-events: none;
+}
+
 .miModal {
   position: fixed;
   font-family: Arial, sans-serif;
@@ -26,14 +42,16 @@
   left: 0;
   background: rgba(0, 0, 0, 0.8);
   z-index: 99999;
+  // opacity: 0;
+  -webkit-transition: all 1s ease-in;
+  -moz-transition: all 1s ease-in;
+  transition: all 1s ease-in;
+  // pointer-events: none;
   opacity: 1;
-  -webkit-transition: opacity 400ms ease-in;
-  -moz-transition: opacity 400ms ease-in;
-  transition: opacity 400ms ease-in;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
-.modal-contenido {
+.modal-content-default {
   width: 400px;
   position: relative;
   padding: 5px 20px 13px 20px;
@@ -44,7 +62,16 @@
   transition: all 500ms ease-in;
 }
 
+.movedown-default {
+  margin: 0 auto;
+  -webkit-transition: all 500ms ease-in;
+  -moz-transition: all 500ms ease-in;
+  transition: all 500ms ease-in;
+}
+
 .movedown {
-  // margin: 0 auto;
   margin: 10% auto;
+  -webkit-transition: all 500ms ease-in;
+  -moz-transition: all 500ms ease-in;
+  transition: all 500ms ease-in;
 }

@@ -40,9 +40,11 @@
   </div>
 </form>
 @if(_apirestService.createData().status=='success'){
-<!-- <app-success msg="{{ _apirestService.createData().msg}}"/> -->
 <app-success
   title="Formas de Pago"
-  msg="{{ _apirestService.createData().msg }}"
+  [msg]="_apirestService.createData().msg"
+  [state]="true"
 />
 }
+
+<!-- <app-success title="Formas de Pago" msg="Creado Exitosamente" /> -->

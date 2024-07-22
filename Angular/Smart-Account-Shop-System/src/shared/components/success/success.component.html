@@ -20,8 +20,14 @@
     </div>
   </div>
 </div> -->
-<div id="miModal" class="miModal">
-  <div class="modal-contenido movedown">
+<div id="miModal" [class]="state() ? 'miModal' : 'miModal-default'">
+  <div
+    [class]="
+      state()
+        ? 'modal-content-default movedown'
+        : 'modal-content-default movedown-default'
+    "
+  >
     <h2>{{ title() }}</h2>
     <p>{{ msg() }}</p>
   </div>
