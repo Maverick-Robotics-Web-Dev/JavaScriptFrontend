@@ -1,10 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { WaytoPayInputData } from '@interfaces/business';
 import { WayToPayService } from '@services/way-to-pay.service';
