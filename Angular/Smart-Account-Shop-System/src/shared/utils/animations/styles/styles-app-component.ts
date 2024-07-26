@@ -17,8 +17,10 @@ export const initialStyle: AnimationStyleMetadata = style({
 // const initialOutStyle: AnimationStyleMetadata = style({ opacity: 1 });
 export const enterStyle: AnimationStyleMetadata = style({
   opacity: 0,
+  transform: 'translateY(-50px)',
 });
 
 export const leaveStyle: AnimationStyleMetadata = style({
   opacity: 1,
+  transform: 'scale(1)',
 });

@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { ChildrenOutletContexts, Data, RouterOutlet } from '@angular/router';
 import { NavBarComponent } from '@shared/components/nav-bar';
+import { appScaleAnimation } from '@shared/utils/animations/animation';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,5 +9,12 @@ import { NavBarComponent } from '@shared/components/nav-bar';
   imports: [RouterOutlet, NavBarComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
+  animations: [appScaleAnimation],
 })
-export class DashboardComponent {}
+export class DashboardComponent {
+  private contexts: ChildrenOutletContexts = inject(ChildrenOutletContexts);
+
+  public getRouteAnimationData(): Data | undefined {
+    return this.contexts.getContext('primary')?.route?.snapshot.data?.['animation'];
+  }
+}

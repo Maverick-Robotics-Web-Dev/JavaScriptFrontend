@@ -5,22 +5,22 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: mainComponent,
-    // data:{animation:'main'}
+    data: { animation: 'mainwaytopay' },
   },
   {
     path: 'detail/:id',
     loadComponent: detailComponent,
-    // data:{animation:''}
+    data: { animation: 'detailwaytopay' },
   },
   {
     path: 'create',
     loadComponent: createComponent,
-    // data:{animation:''}
+    data: { animation: 'createwaytopay' },
   },
   {
     path: 'update/:id',
     loadComponent: updateComponent,
-    // data:{animation:''}
+    data: { animation: 'updatewaytopay' },
   },
   { path: '**', redirectTo: '', pathMatch: 'full' },
   // { path: '**', loadComponent: pagenotfoundComponent },
