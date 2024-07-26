@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ChildrenOutletContexts, Data, RouterOutlet } from '@angular/router';
+import { appScaleAnimation } from '@shared/utils/animations/animation';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,7 @@ import { ChildrenOutletContexts, Data, RouterOutlet } from '@angular/router';
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  animations: [appScaleAnimation],
 })
 export class AppComponent {
   title = 'Smart-Account-Shop-System';
