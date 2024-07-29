@@ -14,13 +14,15 @@ import { Observable } from 'rxjs';
 export class WayToPayService extends BaseService {
   private businessURL: string = `${this.apiBaseURL}/business/way-to-pay/`;
   private _destroy: DestroyRef = inject(DestroyRef);
-  private _router: Router = inject(Router);
+  // private _router: Router = inject(Router);
   private listWaytoPay = signal<SignalState>(defaultState);
   private retrieveWaytoPay = signal<SignalState>(defaultState);
   public createWaytoPay = signal<SignalState>(defaultState);
+  public updateWaytoPay = signal<SignalState>(defaultState);
   public listData = computed(() => this.listWaytoPay());
   public retrievetData = computed(() => this.retrieveWaytoPay());
   public createData = computed(() => this.createWaytoPay());
+  public updateData = computed(() => this.updateWaytoPay());
 
   constructor() {
     super();
@@ -86,8 +88,6 @@ export class WayToPayService extends BaseService {
       .subscribe({
         next: (resp: WaytoPayCRU) => {
           if (resp.ok) {
-            // waytopayForm.reset();
-            // this._router.navigate(['/admin/way-to-pay']);
             if (resp.msg) {
               this.createWaytoPay.set({ data: resp.data, msg: resp.msg, status: 'success', error: {} });
             } else {
@@ -108,10 +108,30 @@ export class WayToPayService extends BaseService {
       });
   }
 
-  public partial_update(id: string, data: WaytoPayInputData): Observable<WaytoPayCRU> {
-    const waytopayUpdate: Observable<WaytoPayCRU> = this.httpClient.patch<WaytoPayCRU>(`${this.businessURL}${id}/`, data);
-
-    return waytopayUpdate;
+  public partial_update(id: string, data: WaytoPayInputData) {
+    this.httpClient
+      .patch<WaytoPayCRU>(`${this.businessURL}${id}/`, data)
+      .pipe(takeUntilDestroyed(this._destroy))
+      .subscribe({
+        next: (resp: WaytoPayCRU) => {
+          if (resp.ok) {
+            if (resp.msg) {
+              this.updateWaytoPay.set({ data: resp.data, msg: resp.msg, status: 'success', error: {} });
+            } else {
+              this.updateWaytoPay.set({ data: resp.data, status: 'success', error: {} });
+            }
+          }
+        },
+        error: (err: HttpErrorResponse) => {
+          if (err instanceof Error) {
+            console.log(`Error ${err}`);
+            this.updateWaytoPay.set({ data: {}, status: 'error', error: err });
+          }
+          if (err instanceof HttpErrorResponse) {
+            this.updateWaytoPay.set({ data: {}, status: 'error', error: err });
+          }
+        },
+      });
   }
 
   public delete(id: string): Observable<WaytoPayDel> {

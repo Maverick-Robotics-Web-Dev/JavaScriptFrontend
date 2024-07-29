@@ -10,9 +10,8 @@ import {
   trigger,
 } from '@angular/animations';
 // import { enterAppStyle, initialAdminStyle, initialAppStyle, leaveAppStyle, resetAdminStyle, resetAppStyle } from '../styles';
-import { initialAdminStyle, initialAppStyle, resetAdminStyle, resetAppStyle } from '../styles';
-import { enterAdminAnimate, enterAppAnimate, leaveAdminAnimate, leaveAppAnimate } from '../animate';
-import { enterAppStyle, leaveAppStyle } from '../styles/styles-app-component';
+import { initialAdminStyle, initialAppStyle, initialWaytopayStyle, resetAdminStyle, resetAppStyle, resetWaytopayStyle } from '../styles';
+import { enterAdminAnimate, enterAppAnimate, enterWaytopayAnimate, leaveAdminAnimate, leaveAppAnimate, leaveWaytopayAnimate } from '../animate';
 
 const optionAnimation: AnimationQueryOptions | null = { optional: true };
 
@@ -22,11 +21,11 @@ export const routeAnimation = trigger('routeAnimation', [
     query(':enter', [initialAdminStyle], optionAnimation),
     group([query(':leave', [leaveAdminAnimate], optionAnimation), query(':enter', [enterAdminAnimate], optionAnimation)]),
   ]),
-  // transition('*<=>*', [
-  //   ...resetAppStyle,
-  //   query(':enter', [initialAppStyle], optionAnimation),
-  //   group([query(':leave', [leaveAppStyle, leaveAppAnimate], optionAnimation), query(':enter', [enterAppStyle, enterAppAnimate], optionAnimation)]),
-  // ]),
+  transition('mainwaytopay<=>*', [
+    ...resetWaytopayStyle,
+    query(':enter', [initialWaytopayStyle], optionAnimation),
+    group([query(':leave', [leaveWaytopayAnimate], optionAnimation), query(':enter', [enterWaytopayAnimate], optionAnimation)]),
+  ]),
   transition('*<=>*', [
     ...resetAppStyle,
     query(':enter', [initialAppStyle], optionAnimation),

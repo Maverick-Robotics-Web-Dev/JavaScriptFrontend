@@ -1,1 +1,23 @@
-<p>edit works!</p>
+@if(waytopayForm.patchValue(_apirestService.retrievetData().data)){
+<div class="mx-3">
+  <h1>Actualizacion de Datos</h1>
+</div>
+<form [formGroup]="waytopayForm" class="mx-3 mt-1 row g-3">
+  <div class="col-md-12">
+    <label class="form-label fs-4">ID:</label>
+    <label class="ms-1 form-label fs-4">{{ _apirestService.retrievetData().data.id }}</label>
+  </div>
+  <div class="col-md-6">
+    <label for="inputEmail4" class="form-label">Email</label>
+    <input type="email" class="form-control" id="inputEmail4" />
+  </div>
+  <div class="col-md-6">
+    <label for="inputPassword4" class="form-label">Password</label>
+    <input type="password" class="form-control" id="inputPassword4" />
+  </div>
+
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Sign in</button>
+  </div>
+</form>
+}

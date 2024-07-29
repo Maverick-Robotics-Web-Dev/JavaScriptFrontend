@@ -25,12 +25,7 @@ export class CreateComponent implements OnInit {
       description: [''],
       fk_user_employee: ['', [Validators.required]],
     });
-    this._apirestService.createWaytoPay.set({
-      data: {},
-      msg: '',
-      status: '',
-      error: {},
-    });
+    this._apirestService.createWaytoPay.set({ data: {}, msg: '', status: '', error: {} });
   }
 
   public backMain(e: Event) {
