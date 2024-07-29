@@ -1,2 +1,3 @@
-export { enterAdminStyle, initialAdminStyle, leaveAdminStyle } from './styles-homeadmin-component';
-export { enterStyle, initialRouteStyle, initialStyle, leaveStyle, resetStyle } from './styles-app-component';
+export { initialAdminStyle, resetAdminStyle } from './styles-homeadmin-component';
+// export { enterAppStyle, initialAppStyle, leaveAppStyle, resetAppStyle } from './styles-app-component';
+export { initialAppStyle, resetAppStyle } from './styles-app-component';

@@ -1,14 +1,18 @@
-import { AnimationStyleMetadata, style } from '@angular/animations';
+import { AnimationStyleMetadata, query, style } from '@angular/animations';
+
+const initialStyle: AnimationStyleMetadata = style({
+  position: 'relative',
+});
+
+const resetStyle: AnimationStyleMetadata = style({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+});
 
 export const initialAdminStyle: AnimationStyleMetadata = style({
   left: '-100%',
 });
 
-// const initialOutStyle: AnimationStyleMetadata = style({ opacity: 1 });
-export const enterAdminStyle: AnimationStyleMetadata = style({
-  left: '0',
-});
-
-export const leaveAdminStyle: AnimationStyleMetadata = style({
-  left: '100%',
-});
+export const resetAdminStyle = [initialStyle, query(':enter,:leave', [resetStyle], { optional: true })];

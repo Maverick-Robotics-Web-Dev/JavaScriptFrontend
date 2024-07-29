@@ -1,1 +1,1 @@
-export { appScaleAnimation } from './animations-app-component';
+export { routeAnimation } from './animations-app-component';
