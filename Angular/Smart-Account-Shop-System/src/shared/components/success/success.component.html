@@ -1,5 +1,5 @@
-<div id="miModal" [class.miModal]="state()">
-  <div [class.modal-content]="state()">
+<div id="miModal" [class]="state() ? 'miModal-in' : 'miModal-out'">
+  <div [class]="state() ? 'modal-content-in' : 'modal-content-out'">
     <h2>{{ title() }}</h2>
     <p>{{ msg() }}</p>
   </div>

@@ -19,10 +19,12 @@ export class WayToPayService extends BaseService {
   public retrieveWaytoPay = signal<SignalState>(defaultState);
   public createWaytoPay = signal<SignalState>(defaultState);
   public updateWaytoPay = signal<SignalState>(defaultState);
+  public deleteWaytoPay = signal<SignalState>(defaultState);
   public listData = computed(() => this.listWaytoPay());
   public retrievetData = computed(() => this.retrieveWaytoPay());
   public createData = computed(() => this.createWaytoPay());
   public updateData = computed(() => this.updateWaytoPay());
+  public deleteData = computed(() => this.deleteWaytoPay());
 
   constructor() {
     super();
@@ -81,7 +83,7 @@ export class WayToPayService extends BaseService {
       });
   }
 
-  public create(data: WaytoPayInputData, waytopayForm: FormGroup) {
+  public create(data: WaytoPayInputData, waytopayForm: FormGroup): void {
     this.httpClient
       .post<WaytoPayCRU>(`${this.businessURL}`, data)
       .pipe(takeUntilDestroyed(this._destroy))
@@ -108,7 +110,7 @@ export class WayToPayService extends BaseService {
       });
   }
 
-  public partial_update(id: string, data: WaytoPayInputData) {
+  public partial_update(id: string, data: WaytoPayInputData): void {
     this.httpClient
       .patch<WaytoPayCRU>(`${this.businessURL}${id}/`, data)
       .pipe(takeUntilDestroyed(this._destroy))
@@ -134,10 +136,26 @@ export class WayToPayService extends BaseService {
       });
   }
 
-  public delete(id: string): Observable<WaytoPayDel> {
-    const waytopayDelete: Observable<WaytoPayDel> = this.httpClient.delete<WaytoPayDel>(`${this.businessURL}${id}/`);
-
-    return waytopayDelete;
+  public delete(id: string): void {
+    this.httpClient
+      .delete<WaytoPayDel>(`${this.businessURL}${id}/`)
+      .pipe(takeUntilDestroyed(this._destroy))
+      .subscribe({
+        next: (resp: WaytoPayDel) => {
+          if (resp.ok) {
+            this.deleteWaytoPay.set({ data: {}, msg: resp.msg, status: 'success', error: {} });
+          }
+        },
+        error: (err: HttpErrorResponse) => {
+          if (err instanceof Error) {
+            console.log(`Error ${err}`);
+            this.deleteWaytoPay.set({ data: {}, status: 'error', error: err });
+          }
+          if (err instanceof HttpErrorResponse) {
+            this.deleteWaytoPay.set({ data: {}, status: 'error', error: err });
+          }
+        },
+      });
   }
 
   // public getState() {

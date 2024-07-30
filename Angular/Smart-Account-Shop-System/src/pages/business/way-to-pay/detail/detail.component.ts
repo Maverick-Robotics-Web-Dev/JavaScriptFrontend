@@ -13,13 +13,12 @@ import { WayToPayService } from '@services/index';
 export class DetailComponent implements OnInit {
   @Input() id!: string;
   public _apirestService: WayToPayService = inject(WayToPayService);
-  private _router: Router = inject(Router);
 
   ngOnInit(): void {
-    this.get();
+    this.getWaytoPay();
   }
 
-  private get() {
+  private getWaytoPay() {
     this._apirestService.retrieve(this.id);
   }
 }
