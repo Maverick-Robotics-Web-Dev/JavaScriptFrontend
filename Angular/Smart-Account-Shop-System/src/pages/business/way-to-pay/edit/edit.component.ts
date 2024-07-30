@@ -1,6 +1,7 @@
 import { JsonPipe } from '@angular/common';
-import { Component, inject, Input, input, OnInit } from '@angular/core';
+import { Component, effect, inject, Input, input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { WaytoPayOutputData } from '@interfaces/business';
 import { WayToPayService } from '@services/way-to-pay.service';
 
 @Component({
@@ -12,12 +13,26 @@ import { WayToPayService } from '@services/way-to-pay.service';
 })
 export class EditComponent implements OnInit {
   @Input() id!: string;
-  private _formBuilder: FormBuilder = inject(FormBuilder);
   public _apirestService: WayToPayService = inject(WayToPayService);
+  private _formBuilder: FormBuilder = inject(FormBuilder);
   public waytopayForm!: FormGroup;
 
+  constructor() {
+    effect(() => {
+      console.log(this._apirestService.retrievetData());
+      if (this._apirestService.retrievetData().status == 'success') {
+        console.log('Hello');
+        this.waytopayForm.patchValue(this._apirestService.retrievetData().data);
+      }
+    });
+
+    // this.getData();
+    // this._apirestService.retrieve(this.id);
+    // console.log(this._apirestService.retrievetData());
+  }
+
   ngOnInit(): void {
-    this._apirestService.updateWaytoPay.set({ data: {}, msg: '', status: '', error: {} });
+    // this._apirestService.retrieveWaytoPay.set({ data: {}, msg: '', status: '', error: {} });
     this.getData();
     this.createForm();
   }
@@ -32,6 +47,7 @@ export class EditComponent implements OnInit {
 
   private getData(): void {
     this._apirestService.retrieve(this.id);
-    console.log(this._apirestService.listData().data);
+    // console.log(this._apirestService.retrievetData());
+    // this.waytopayForm.patchValue(this._apirestService.retrievetData().data);
   }
 }

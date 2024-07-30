@@ -16,7 +16,7 @@ export class WayToPayService extends BaseService {
   private _destroy: DestroyRef = inject(DestroyRef);
   // private _router: Router = inject(Router);
   private listWaytoPay = signal<SignalState>(defaultState);
-  private retrieveWaytoPay = signal<SignalState>(defaultState);
+  public retrieveWaytoPay = signal<SignalState>(defaultState);
   public createWaytoPay = signal<SignalState>(defaultState);
   public updateWaytoPay = signal<SignalState>(defaultState);
   public listData = computed(() => this.listWaytoPay());
