@@ -16,16 +16,20 @@ export class MainComponent implements OnInit {
   public _apirestService: WayToPayService = inject(WayToPayService);
   private _router: Router = inject(Router);
 
-  // constructor() {
-  //   effect(() => {
-  //     if (this._apirestService.deleteData().status == 'success') {
-  //       console.log('Hello');
-  //     }
-  //   });
-  // }
+  constructor() {
+    effect(
+      () => {
+        if (this._apirestService.deleteData().status == 'success') {
+          console.log('Hello');
+          this.ngOnInit();
+        }
+      },
+      { allowSignalWrites: true }
+    );
+  }
 
   ngOnInit(): void {
-    this._apirestService.deleteWaytoPay.set({ data: {}, msg: '', status: '', error: {} });
+    // this._apirestService.deleteWaytoPay.set({ data: {}, msg: '', status: '', error: {} });
     this.getWaytoPays();
   }
 

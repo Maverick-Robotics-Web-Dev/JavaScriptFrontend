@@ -1,3 +1,5 @@
+<div>{{ this._apirestService.deleteData() | json }}</div>
+@if(_apirestService.listData().data){
 <h1>Formas de pago</h1>
 <button type="button" class="btn btn-success m-1" (click)="createWaytoPay($event)">Crear</button>
 <table class="table">
@@ -26,8 +28,9 @@
     }
   </tbody>
 </table>
-@if(_apirestService.deleteData().status=='success'){
-<app-success title="Formas de Pago" [msg]="_apirestService.deleteData().msg" />
+} @if(_apirestService.deleteData().status=='success'){
+<app-success title="Formas de Pago" [msg]="_apirestService.deleteData().msg" [state]="true" />
+{{ _apirestService.deleteWaytoPay.set({ data: {}, msg: "", status: "", error: {} }) }}
 }
 <!-- <div>{{ _apirestService.listData() | json }}</div>
 <div>{{ _apirestService.listWaytoPay().data | json }}</div>

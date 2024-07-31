@@ -14,22 +14,25 @@ export class SuccessComponent implements OnInit {
   private timeOut!: any;
   private timeOutModal!: any;
   private _router: Router = inject(Router);
-  public state: WritableSignal<boolean> = signal(false);
   public title: InputSignal<string> = input.required();
   public msg: InputSignal<string | undefined> = input.required();
+  public state: InputSignal<boolean> = input.required();
+  public status: WritableSignal<boolean> = signal(false);
 
   ngOnInit(): void {
-    this.state.set(true);
+    // this.status.set(this.state());
+    this.status.set(true);
+    console.log(this.status());
     this.closeWindow();
   }
 
   private closeWindow(): void {
     this.timeOutModal = setTimeout(() => {
-      this.state.set(false);
+      this.status.set(false);
     }, 1000);
-    this.timeOut = setTimeout(() => {
-      this._router.navigate(['/admin/way-to-pay/']);
-    }, 1500);
+    // this.timeOut = setTimeout(() => {
+    //   this._router.navigate(['/admin/way-to-pay/']);
+    // }, 1500);
   }
 
   ngOnDestroy(): void {
