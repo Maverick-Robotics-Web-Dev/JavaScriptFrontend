@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { WayToPayService } from '@services/index';
 import { AsyncPipe, JsonPipe } from '@angular/common';
@@ -21,8 +21,8 @@ export class MainComponent implements OnInit {
       () => {
         if (this._apirestService.deleteData().status == 'success') {
           console.log('Hello');
-          this.ngOnInit();
         }
+        // this._apirestService.deleteWaytoPay.set({ data: {}, msg: '', status: '', error: {} });
       },
       { allowSignalWrites: true }
     );

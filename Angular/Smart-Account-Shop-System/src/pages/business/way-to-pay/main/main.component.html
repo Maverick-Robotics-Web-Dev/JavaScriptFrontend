@@ -30,7 +30,6 @@
 </table>
 } @if(_apirestService.deleteData().status=='success'){
 <app-success title="Formas de Pago" [msg]="_apirestService.deleteData().msg" [state]="true" />
-{{ _apirestService.deleteWaytoPay.set({ data: {}, msg: "", status: "", error: {} }) }}
 }
 <!-- <div>{{ _apirestService.listData() | json }}</div>
 <div>{{ _apirestService.listWaytoPay().data | json }}</div>
