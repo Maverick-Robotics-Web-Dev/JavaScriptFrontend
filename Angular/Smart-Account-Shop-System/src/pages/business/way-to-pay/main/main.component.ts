@@ -15,25 +15,30 @@ import { SuccessComponent } from '@shared/components/success';
 export class MainComponent implements OnInit {
   public _apirestService: WayToPayService = inject(WayToPayService);
   private _router: Router = inject(Router);
+  private timeOut!: any;
 
   constructor() {
     effect(
       () => {
         if (this._apirestService.deleteData().status == 'success') {
           console.log('Hello');
+          this.timeOut = setTimeout(() => {
+            // this._apirestService.deleteWaytoPay.set({ data: {}, msg: '', status: '', error: {} });
+            this.getWaytoPays();
+            clearInterval(this.timeOut);
+          }, 1000);
         }
-        // this._apirestService.deleteWaytoPay.set({ data: {}, msg: '', status: '', error: {} });
       },
       { allowSignalWrites: true }
     );
   }
 
   ngOnInit(): void {
-    // this._apirestService.deleteWaytoPay.set({ data: {}, msg: '', status: '', error: {} });
     this.getWaytoPays();
   }
 
   public getWaytoPays(): void {
+    this._apirestService.deleteWaytoPay.set({ data: {}, msg: '', status: '', error: {} });
     this._apirestService.list();
   }
 
