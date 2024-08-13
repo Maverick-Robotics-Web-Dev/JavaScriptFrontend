@@ -21,12 +21,11 @@ export class MainComponent implements OnInit {
     effect(
       () => {
         if (this._apirestService.deleteData().status == 'success') {
-          console.log('Hello');
+          this.getWaytoPays();
           this.timeOut = setTimeout(() => {
-            // this._apirestService.deleteWaytoPay.set({ data: {}, msg: '', status: '', error: {} });
-            this.getWaytoPays();
+            this._apirestService.deleteWaytoPay.set({ data: {}, msg: '', status: '', error: {} });
             clearInterval(this.timeOut);
-          }, 1000);
+          }, 1200);
         }
       },
       { allowSignalWrites: true }
@@ -38,8 +37,8 @@ export class MainComponent implements OnInit {
   }
 
   public getWaytoPays(): void {
-    this._apirestService.deleteWaytoPay.set({ data: {}, msg: '', status: '', error: {} });
     this._apirestService.list();
+    // this._apirestService.deleteWaytoPay.set({ data: {}, msg: '', status: '', error: {} });
   }
 
   public getWaytoPay(e: Event, id: number) {
