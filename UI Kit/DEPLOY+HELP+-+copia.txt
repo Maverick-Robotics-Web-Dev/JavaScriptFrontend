@@ -1,0 +1,70 @@
+https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-laravel-with-nginx-on-ubuntu-22-04
+https://www.digitalocean.com/community/tutorials/how-to-install-php-7-4-and-set-up-a-local-development-environment-on-ubuntu-18-04
+https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-22-04
+https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-22-04
+
+admin.laravest.com
+api.laravest.com
+tienda.laravest.com
+
+USER:ROOT
+PASSWORD: V^VVNdi7Rgy3AvEQ#KM
+
+IP: 
+
+mysql
+user:root1
+password:3AvEQ#KM
+
+Intentar asi en el .env "3AvEQ#KM"
+
+sudo apt-get purge php8.*
+sudo apt-get autoclean
+sudo apt-get autoremove
+
+server {
+
+   listen 80;
+   root /var/www/front_dominio_deploy/dist;
+   index index.html index.htm index.nginx-debian.html;
+
+   server_name admin.dominio.com;
+
+   location / {
+      try_files $uri $uri/ /index.html;
+   }
+}
+
+mysql -u root -p name_db < /var/www/db.sql
+
+sudo apt install php8.2-fpm php8.2-common php8.2-mbstring php8.2-xmlrpc php8.2-soap php8.2-gd php8.2-xml php8.2-intl php8.2-mysql php8.2-cli php8.2-zip php8.2-curl
+sudo systemctl status nginx.service
+
+laravel storage file
+sudo chown -R www-data: storage
+sudo chmod -R 777 storage
+
+sudo /etc/init.d/apache2 stop
+sudo systemctl restart nginx
+
+sudo pkill -f nginx & wait $!
+sudo systemctl start nginx
+sudo rm /etc/nginx/sites-enabled/default
+
+https://stackoverflow.com/questions/36864206/sqlstatehy000-1698-access-denied-for-user-rootlocalhost
+
+PASOS:
+ BACKUPS, VARIABLES DE ENTERNO Y COMPILACIÓN DE LOS PROYECTOS
+ CREACIÓN DE DROPLET Y UNIÓN DE LOS DNS
+ CONFIGURACIÓN DEL DROPLET
+ GITHUB DE LOS PROYECTOS
+ CLONAR NUESTRO REPOSITORIOS EN LOS DROPLET
+ CONFIGURAR LOS SITE-AVALIBLE Y SSL
+
+sudo service php8.2-fpm restart
+
+programar los schedule
+cd ~
+crontab -u root -e
+* * * * * php /var/www/laravelprojectname/artisan schedule:run 1>> /dev/null 2>&1
+service cron restart
